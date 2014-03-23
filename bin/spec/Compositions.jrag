@@ -1,0 +1,78 @@
+
+aspect Compositions{
+	
+	inh Root CompositionProgram.getRoot();
+	eq Root.getCompositionProgram().getRoot() = this;
+	inh Root Composer.getRoot();
+	eq CompositionProgram.getComposers(int i).getRoot() = getRoot();
+	
+	syn java.util.List<Declaration> Composer.getSource(){
+		return getRoot().lookup(getSourceName());
+	}
+	
+	syn java.util.List<Declaration> Composer.getTarget(){
+		return getRoot().lookup(getTargetName());
+	}
+	
+	syn boolean Composer.isExhausted(){
+		return getTarget().isEmpty();
+	}
+	
+	syn Composer CompositionProgram.nextComposition(){
+		Composer next = null;
+		for (int i = 0; i < getNumComposers(); i++){
+			next = getComposers(i);
+			if(!next.isExhausted())
+				return next;
+		}
+		return null;
+	}
+	
+	//this == bind target
+	public boolean ASTNode.bind(ASTNode source, boolean copy){
+		if(source == null)
+			return false;
+		ASTNode parent = this.getParent();
+		int index = parent.getIndexOfChild(this);
+		parent.removeChild(index);
+		if(copy){
+			ASTNode nodeCopy = source.fullCopy();
+			parent.insertChild(nodeCopy, index);
+		}
+		else{
+			ASTNode srcParent = source.getParent();		
+			srcParent.removeChild(srcParent.getIndexOfChild(source));
+			parent.insertChild(source,index);
+		}
+		return true;
+	}
+	
+	public void ASTNode.removeSource(){
+		ASTNode srcParent = this.getParent();		
+		srcParent.removeChild(srcParent.getIndexOfChild(this));
+	}
+	
+	public void Root.doCompositions() throws CompositionException{
+		Composer nextComposition = getCompositionProgram().nextComposition();
+		//int iterationCnt = 0;
+		while(nextComposition != null){
+			//iterationCnt++;
+			checkWellformedness();
+			java.util.List<Declaration> sources = nextComposition.getSource();
+			if(sources.size() != 1)
+				throw new CompositionException("Incorrect composition source fragment."); 
+			Declaration source = sources.get(0);
+			java.util.List<Declaration> targets = nextComposition.getTarget();
+			for(Declaration target : targets){
+				target.bind(source, true);
+			}
+			if(nextComposition instanceof BindExhaust){
+				source.removeSource();
+			}
+			nextComposition = getCompositionProgram().nextComposition();
+		}
+		checkWellformedness();
+		//System.out.println("number of iterations: " + iterationCnt);
+	}
+		
+}
