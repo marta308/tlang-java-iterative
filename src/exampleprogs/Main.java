@@ -33,7 +33,7 @@ public class Main {
 
 		CompositionProgram cp = CompositionLangCompiler
 				.compile("in/composition.txt");
-		assert (cp != null);
+		//assert (cp != null);
 
 		Root root = new Root(compUnits, cp);
 
