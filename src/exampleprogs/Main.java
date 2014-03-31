@@ -10,29 +10,30 @@ public class Main {
 	private static List<CompilationUnit> compUnits = null;
 
 	public static void main(String[] args) {
-		String indir = getFilename(args);
-		String outdir = args[1];
+		String recipe = getFilename(args);
+		String outdir = "out";
 
-		mainOneLoop(indir);
+		mainOneLoop(recipe);
 
 		final long start = new java.util.Date().getTime();
 
-		for (int i = 0; i < 10; i++) {
-			mainOneLoop(indir);
+		for (int i = 0; i < 5; i++) {
+			mainOneLoop(recipe);
 		}
 
 		final long end = new java.util.Date().getTime();
-		System.out.println("\nExecution Time: " + (end - start) / 10 + "ms");
-
+		System.out.println("\nExecution Time: " + (end - start) / 5 + "ms");
+		
 		Compiler.prettyPrint(compUnits, outdir);
 	}
 
-	private static void mainOneLoop(String indir) {
-
+	private static void mainOneLoop(String recipe) {
+		String indir = "in";
+		
 		compUnits = Compiler.compile(indir);
 
 		CompositionProgram cp = CompositionLangCompiler
-				.compile("in/composition.txt");
+				.compile(recipe);
 		//assert (cp != null);
 
 		Root root = new Root(compUnits, cp);
@@ -42,13 +43,17 @@ public class Main {
 		} catch (CompositionException e) {
 			System.out.println(e.getMessage());
 		}
+		
+		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+		//match.addAll(root.lookup("subject.**.classhk"));
+		//for(Declaration d : match)
+		//	System.out.println(d.qname());
 
 	}
 
 	public static String getFilename(String[] args) {
-		if (args.length != 2) {
-			System.out
-					.println("Usage: java Compiler: infile, outfile");
+		if (args.length != 1) {
+			System.out.println("Usage: composition recipe file");
 			System.exit(1);
 		}
 		return args[0];

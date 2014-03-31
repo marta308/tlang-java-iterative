@@ -48,10 +48,8 @@ aspect Compositions{
 	
 	public void Root.doCompositions() throws CompositionException{
 		Composer nextComposition = getCompositionProgram().nextComposition();
-		//int iterationCnt = 0;
 		while(nextComposition != null){
-			//iterationCnt++;
-			checkWellformedness();
+			//checkWellformedness();
 			java.util.List<Declaration> sources = nextComposition.getSource();
 			if(sources.size() != 1)
 				throw new CompositionException("Incorrect composition source fragment."); 
@@ -66,7 +64,6 @@ aspect Compositions{
 			nextComposition = getCompositionProgram().nextComposition();
 		}
 		checkWellformedness();
-		//System.out.println("number of iterations: " + iterationCnt);
 	}
 		
 }

@@ -1,6 +1,4 @@
-// Synthesized and inherited attributes. Parameterized attributes.
-// See section 3.6 in the paper.
-// Reference manual: http://jastadd.org/
+import java.util.regex.*;
 
 aspect NameAnalysis {
 	
@@ -31,15 +29,13 @@ aspect NameAnalysis {
   		return match;
   	}	
   
-  syn java.util.List<Declaration> CompilationUnit.lookup(String label) { 
+  /*syn java.util.List<Declaration> CompilationUnit.lookup(String label) { 
   	String [] parts = label.split("\\.");
   	java.util.List<Declaration> resLocal = new java.util.LinkedList<Declaration>();
   	java.util.List<Declaration> res = new java.util.LinkedList<Declaration>();
   	for (Declaration d : getClassDeclarationList()){
-  		if(parts[0].equals("*"))
+  		if(parts[0].equals("*") || parts[0].equals(d.qname()))
   			resLocal.add(d);
-      	else if(parts[0].equals(d.qname())) 
-      		resLocal.add(d);
     }
     if(parts.length == 1)
     	return resLocal;
@@ -56,39 +52,106 @@ aspect NameAnalysis {
   		else break; 		
   	}
   	return res;
+  }*/
+  
+  syn java.util.List<Declaration> CompilationUnit.lookup(String label) { 
+	  	String [] parts = label.split("\\.");
+	  	java.util.List<Declaration> resLocal = new java.util.LinkedList<Declaration>();
+	  	java.util.List<Declaration> res = new java.util.LinkedList<Declaration>();
+	  	int limit = -2;
+	  	int i = 1;
+	  	for (Declaration d : getClassDeclarationList()){
+	  		if(parts[0].equals("*") || parts[0].equals(d.qname()))
+	  			resLocal.add(d);
+	  		else if(parts[0].equals("**") || parts[0].matches("\\*[0-9]+")){
+	  			i = 2;
+	  			if(parts[0].matches("\\*[0-9]+"))
+		  			limit = Integer.parseInt(parts[0].substring(1));
+	  			
+	  			if(parts[1].equals(d.qname()))
+	  				resLocal.add(d);
+	  			resLocal.addAll(d.localLookupDeep(parts[1], limit-1));
+	  		}
+	    }
+	  	
+	    if(parts.length == 1 || (parts[0].equals("**") || parts[0].matches("\\*[0-9]+")) && parts.length == 2)
+	    	return resLocal;
+	    
+	  	for (; i < parts.length; i++){
+	  		res = new java.util.LinkedList<Declaration>();
+	  		for(Declaration d : resLocal)
+	  			if(parts[i].equals("**") || parts[i].matches("\\*[0-9]+")){
+	  				if(parts[i].matches("\\*[0-9]+"))
+			  			limit = Integer.parseInt(parts[i].substring(1));
+	  				else limit = -2;	  				
+	  				res.addAll(d.localLookupDeep(parts[++i], limit));
+	  			}
+	  			else
+	  				res.addAll(d.localLookup(parts[i]));
+	  		if(!res.isEmpty()){
+	  			resLocal = new java.util.LinkedList<Declaration>();
+	  			for(Declaration d : res)
+	  				resLocal.add(d);
+	  		}
+	  		else break; 		
+	  	}
+	  	return res;
   }
   
-  syn java.util.List<Declaration> Declaration.localLookup(String label) = new java.util.LinkedList<Declaration>();
+  syn java.util.List<Declaration> Declaration.localLookupDeep(String label, int limit) = new java.util.LinkedList<Declaration>();
   
-  eq ClassDeclaration.localLookup(String label) {
+  eq ClassDeclaration.localLookupDeep(String label, int limit) {
   	java.util.List<Declaration> res = new java.util.LinkedList<Declaration>();
-  	for(Declaration d : getClassBodyList()){
-  		if(label.equals("*"))
-  			res.add(d);
-  	  	else if(label.equals(d.getName()))
-  	  		res.add(d);
+  	if(limit != -1){
+  		for(Declaration d : getClassBodyList()){
+  			if(label.equals(d.getName()))
+  				res.add(d);
+  			res.addAll(d.localLookupDeep(label, limit-1));
+  		}
   	}
   	return res;
   }
   
-   eq MethodDeclaration.localLookup(String label){
+   eq MethodDeclaration.localLookupDeep(String label, int limit){
    	java.util.List<Declaration> res = new java.util.LinkedList<Declaration>();
-  	for(Declaration d : getParametersList()){
-  		if(label.equals("*"))
-  			res.add(d);
-  	  	else if(label.equals(d.getName()))
-  	  		res.add(d);
-  	}
-  	for(Declaration d : getMethodBodyList()){
-  		if(label.equals("*"))
-  			res.add(d);
-  	  	else if(label.equals(d.getName()))
-  	  		res.add(d);
-  	}	
+   	if(limit != -1){
+   		for(Declaration d : getParametersList()){
+   			if(label.equals(d.getName()))
+   				res.add(d);
+   		}
+   		for(Declaration d : getMethodBodyList()){
+   			if(label.equals(d.getName()))
+   				res.add(d);
+   		}
+   	}
   	return res;
   }
    
-   //wildcards-not-supported lookup
+   syn java.util.List<Declaration> Declaration.localLookup(String label) = new java.util.LinkedList<Declaration>();
+   
+   eq ClassDeclaration.localLookup(String label) {
+   	java.util.List<Declaration> res = new java.util.LinkedList<Declaration>();
+   	for(Declaration d : getClassBodyList()){
+   		if(label.equals("*") || label.equals(d.getName()))
+   			res.add(d);
+   	}
+   	return res;
+   }
+   
+    eq MethodDeclaration.localLookup(String label){
+    	java.util.List<Declaration> res = new java.util.LinkedList<Declaration>();
+   	for(Declaration d : getParametersList()){
+   		if(label.equals("*") || label.equals(d.getName()))
+   			res.add(d);
+   	}
+   	for(Declaration d : getMethodBodyList()){
+   		if(label.equals("*") || label.equals(d.getName()))
+   			res.add(d);
+   	}	
+   	return res;
+   }
+   
+   //wildcards-not-supported-local lookup
    syn Declaration ASTNode.lookupNOWC(String label){
 	   if(this instanceof CompilationUnit)
 		   return ((CompilationUnit)this).lookupNOWC(label);

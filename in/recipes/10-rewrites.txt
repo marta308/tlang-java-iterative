@@ -1,0 +1,3 @@
+bind_copy  subject.*9.classhk  abc;
+
+
