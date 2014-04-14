@@ -11,24 +11,24 @@ public class Main {
 
 	public static void main(String[] args) {
 		String recipe = getFilename(args);
-		String outdir = "out";
+		String indir = args[1];
+		String outdir = "out/iter";
 
-		mainOneLoop(recipe);
+		mainOneLoop(recipe, indir);
 
 		final long start = new java.util.Date().getTime();
 
-		for (int i = 0; i < 5; i++) {
-			mainOneLoop(recipe);
+		for (int i = 0; i < 10; i++) {
+			mainOneLoop(recipe, indir);
 		}
 
 		final long end = new java.util.Date().getTime();
-		System.out.println("\nExecution Time: " + (end - start) / 5 + "ms");
+		System.out.println("\nExecution Time: " + (end - start) / 10 + "ms");
 		
 		Compiler.prettyPrint(compUnits, outdir);
 	}
 
-	private static void mainOneLoop(String recipe) {
-		String indir = "in";
+	private static void mainOneLoop(String recipe, String indir) {
 		
 		compUnits = Compiler.compile(indir);
 
@@ -45,15 +45,16 @@ public class Main {
 		}
 		
 		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-		//match.addAll(root.lookup("subject.**.classhk"));
+		//match.addAll(root.lookup("subject.*5.classhk"));
 		//for(Declaration d : match)
 		//	System.out.println(d.qname());
+		//System.out.println(Declaration.match("*.mm.aa.*1.nn", "abc.bb.mm.aa.nn"));
 
 	}
 
 	public static String getFilename(String[] args) {
-		if (args.length != 1) {
-			System.out.println("Usage: composition recipe file");
+		if (args.length != 2) {
+			System.out.println("Usage: composition recipe file, infolder");
 			System.exit(1);
 		}
 		return args[0];
