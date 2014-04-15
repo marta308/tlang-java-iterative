@@ -49,7 +49,7 @@ aspect Compositions{
 	public void Root.doCompositions() throws CompositionException{
 		Composer nextComposition = getCompositionProgram().nextComposition();
 		while(nextComposition != null){
-			checkWellformedness();
+			//checkWellformedness();
 			java.util.List<Declaration> sources = nextComposition.getSource();
 			if(sources.size() != 1)
 				throw new CompositionException("Incorrect composition source fragment."); 
@@ -63,7 +63,7 @@ aspect Compositions{
 			}
 			nextComposition = getCompositionProgram().nextComposition();
 		}
-		checkWellformedness();
+		//checkWellformedness();
 	}
 		
 }

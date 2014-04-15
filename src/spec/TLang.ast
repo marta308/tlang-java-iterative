@@ -1,5 +1,4 @@
-// Abstract syntax
-// Reference manual: http://jastadd.org/
+
 
 
 CompilationUnit ::= ClassDeclaration*;

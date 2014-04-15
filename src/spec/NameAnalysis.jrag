@@ -2,7 +2,7 @@ import java.util.regex.*;
 
 aspect NameAnalysis {
 	
-	  syn String Declaration.qname() = null;
+/*	  syn String Declaration.qname() = null;
 	  eq ClassDeclaration.qname() = 
 	  	"" + ((parentName() != null)? parentName() + "." : "") + getName();
 	  eq MethodDeclaration.qname() =
@@ -20,6 +20,27 @@ aspect NameAnalysis {
 	  	"" + ((parentName() != null)? parentName() + "." : "") + getName();
 	  eq MethodDeclaration.getMethodBody(int i).parentName() = 
 	  	"" + ((parentName() != null)? parentName() + "." : "") + getName();
+	*/
+	
+	  syn String Declaration.qname(){ 
+		  String parentName = parentName();
+		  return "" + ((parentName != null)? parentName + "." : "") + getName();
+	  }
+	  
+	  inh String Declaration.parentName();
+	  eq CompilationUnit.getClassDeclaration(int i).parentName() = null;
+	  eq ClassDeclaration.getClassBody(int i).parentName(){
+		  String parentName = parentName();
+		  return "" + ((parentName != null)? parentName + "." : "") + getName();
+	  }
+	  eq MethodDeclaration.getParameters(int i).parentName(){
+		  String parentName = parentName();
+		  return "" + ((parentName != null)? parentName + "." : "") + getName();
+	  }
+	  eq MethodDeclaration.getMethodBody(int i).parentName(){ 
+		  String parentName = parentName();
+		  return "" + ((parentName != null)? parentName + "." : "") + getName();
+	  }
 	
 	syn java.util.List<Declaration> Root.lookup(String declName){
   		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
@@ -27,7 +48,17 @@ aspect NameAnalysis {
   			match.addAll(cu.lookup(declName));
   		}
   		return match;
-  	}	
+  	}
+	
+	syn java.util.List<Declaration> ASTNode.lookup(String label){
+		   if(this instanceof CompilationUnit)
+			   return ((CompilationUnit)this).lookup(label);
+		   else if(this instanceof ClassDeclaration)
+			   return ((ClassDeclaration)this).lookup(label);
+		   else if(this instanceof MethodDeclaration)
+			   return ((MethodDeclaration)this).lookup(label);
+		   else return null;
+	}
   
 	syn java.util.List<Declaration> CompilationUnit.lookup(String label){
 		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
@@ -72,6 +103,7 @@ aspect NameAnalysis {
 	}
    
    //wildcards-not-supported-local lookup
+	/*
    syn Declaration ASTNode.lookupNOWC(String label){
 	   if(this instanceof CompilationUnit)
 		   return ((CompilationUnit)this).lookupNOWC(label);
@@ -108,7 +140,7 @@ aspect NameAnalysis {
 			   return d;
 	   }
 	   return null;
-   }
+   }	*/
    
    //label1 - searched name, label2 - declarations' qname
    public static boolean Declaration.match(String label1, String label2){

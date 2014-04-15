@@ -1,12 +1,6 @@
 
 aspect WellFormedness {
 	
-	inh CompilationUnit ClassDeclaration.getCompilationUnit();
-	eq CompilationUnit.getClassDeclaration(int i).getCompilationUnit() = this;
-	inh CompilationUnit Declaration.getCompilationUnit();
-	eq ClassDeclaration.getClassBody(int i).getCompilationUnit() = getCompilationUnit();
-	eq MethodDeclaration.getMethodBody(int i).getCompilationUnit() = getCompilationUnit();
-	eq MethodDeclaration.getParameters(int i).getCompilationUnit() = getCompilationUnit();
 
 	syn boolean Root.isCorrect(){
 		for(CompilationUnit cu : getCompilationUnitsList()){
@@ -56,7 +50,7 @@ aspect WellFormedness {
 	
 	
 	syn boolean Declaration.isCorrectLocal(){
-		return (this == getParent().getParent().lookupNOWC(getName()));
+		return (this == getParent().getParent().lookup(qname()).get(0));
 	}
 	
 	public void Root.checkWellformedness() throws CompositionException{
