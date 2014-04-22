@@ -17,7 +17,7 @@ public class Main {
 		mainOneLoop(recipe, indir);
 
 		final long start = new java.util.Date().getTime();
-
+		
 		for (int i = 0; i < 10; i++) {
 			mainOneLoop(recipe, indir);
 		}
@@ -34,10 +34,9 @@ public class Main {
 
 		CompositionProgram cp = CompositionLangCompiler
 				.compile(recipe);
-		//assert (cp != null);
 
 		Root root = new Root(compUnits, cp);
-
+				
 		try {
 			root.doCompositions();
 		} catch (CompositionException e) {
@@ -45,10 +44,15 @@ public class Main {
 		}
 		
 		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-		//match.addAll(root.lookup("subject.*5.classhk"));
+		//match.addAll(root.lookup("subject.**.getC.hook"));
 		//for(Declaration d : match)
 		//	System.out.println(d.qname());
-		//System.out.println(Declaration.match("*.mm.aa.*1.nn", "abc.bb.mm.aa.nn"));
+
+		//String[] res = Declaration.split("*.*.pp");
+		//System.out.println(res[0]);
+		//System.out.println(res[1]);
+		//if(res[2]!= null)
+		//	System.out.println(res[2]);
 
 	}
 

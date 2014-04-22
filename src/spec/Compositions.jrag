@@ -63,7 +63,7 @@ aspect Compositions{
 			}
 			nextComposition = getCompositionProgram().nextComposition();
 		}
-		//checkWellformedness();
+		checkWellformedness();
 	}
 		
 }

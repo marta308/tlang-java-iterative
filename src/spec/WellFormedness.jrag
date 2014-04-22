@@ -50,7 +50,11 @@ aspect WellFormedness {
 	
 	
 	syn boolean Declaration.isCorrectLocal(){
-		return (this == getParent().getParent().lookup(qname()).get(0));
+		ASTNode parent = getParent().getParent();
+		String parentName = "";
+		if(parent instanceof ClassDeclaration || parent instanceof MethodDeclaration)
+			parentName = ((Declaration)parent).getName() + ".";
+		return (this == parent.lookup(parentName + getName()).get(0));
 	}
 	
 	public void Root.checkWellformedness() throws CompositionException{
