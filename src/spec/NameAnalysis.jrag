@@ -23,15 +23,7 @@ aspect NameAnalysis {
 		  return "" + ((parentName != null)? parentName + "." : "") + getName();
 	  }
 	
-	syn java.util.List<Declaration> Root.lookup(String declName){
-  		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-  		for(CompilationUnit cu : getCompilationUnitsList()){
-  			match.addAll(cu.lookup(declName));
-  		}
-  		return match;
-  	}
-	
-	syn java.util.List<Declaration> ASTNode.lookup(String label){
+	  /*syn java.util.List<Declaration> ASTNode.lookup(String label){
 		   if(this instanceof CompilationUnit)
 			   return ((CompilationUnit)this).lookup(label);
 		   else if(this instanceof ClassDeclaration)
@@ -39,93 +31,122 @@ aspect NameAnalysis {
 		   else if(this instanceof MethodDeclaration)
 			   return ((MethodDeclaration)this).lookup(label);
 		   else return null;
-	}
+	}*/
+	  
+	syn Declaration Root.lookup(String declName){
+  		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+		Declaration match = null;
+  		for(CompilationUnit cu : getCompilationUnitsList()){
+  			match = cu.lookup(declName);
+  			if(match != null)
+  				return match;
+  		}
+  		return null;
+  	}
+	
   
-	syn java.util.List<Declaration> CompilationUnit.lookup(String label){
-		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+	syn Declaration CompilationUnit.lookup(String label){
+		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+		Declaration match = null;
 		for (Declaration d : getClassDeclarationList()){
-			match.addAll(d.lookup(label));
+			match = d.lookup(Declaration.split(label));
+			if(match != null)
+  				return match;
 		}
-		return match;
+		return null;
 	}
 	
-	syn java.util.List<Declaration> Declaration.lookup(String label) = new java.util.LinkedList<Declaration>();
+	syn Declaration Declaration.lookup(String[] parts) = null;
 	
-	eq ClassDeclaration.lookup(String label){
-		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-		String[] parts = split(label);
+	eq ClassDeclaration.lookup(String[] parts){
+		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+		Declaration match = null;
 		if(parts == null)
-			return match;
+			return null;
 		
-		java.util.List<Declaration> localMatch = localLookup(parts[0]);
-		if(parts[1].equals(""))
-			match.addAll(localMatch);
+		Declaration localMatch = localLookup(parts[0]);
+		if(localMatch != null && parts[1].equals(""))
+			return localMatch;
 		
-		if(!localMatch.isEmpty()  && !parts[1].equals("")){
+		if(localMatch != null  && !parts[1].equals("")){
+			String[] nextParts = split(parts[1]);
 			for(Declaration d : getClassBodyList()){
-				match.addAll(d.lookup(parts[1]));
+				match = d.lookup(nextParts);
+				if(match != null)
+	  				return match;
 			}
 		}
 		
 		if(parts[2] != null){
+			String[] nextParts = split(parts[2]);
 			for(Declaration d : getClassBodyList()){
-				match.addAll(d.lookup(parts[2]));
+				match = d.lookup(nextParts);
+				if(match != null)
+	  				return match;
 			}
 		}
-		return match;
+		return null;
 	}
 	
-	eq MethodDeclaration.lookup(String label){
-		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-		String[] parts = split(label);
+	eq MethodDeclaration.lookup(String[] parts){
+		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+		Declaration match = null;
 		if(parts == null)
-			return match;
+			return null;
 		
-		java.util.List<Declaration> localMatch = localLookup(parts[0]);
-		if(parts[1].equals(""))
-			match.addAll(localMatch);
+		Declaration localMatch = localLookup(parts[0]);
+		if(localMatch != null && parts[1].equals(""))
+			return localMatch;
 		
 		
-		if(!localMatch.isEmpty() && !parts[1].equals("")){
-
+		if(localMatch != null && !parts[1].equals("")){
+			String[] nextParts = split(parts[1]);
 			for(Declaration d : getParametersList()){
-				match.addAll(d.lookup(parts[1]));
+				match = d.lookup(nextParts);
+				if(match != null)
+	  				return match;				
 			}
 			for(Declaration d : getMethodBodyList()){
-				match.addAll(d.lookup(parts[1]));
+				match = d.lookup(nextParts);
+				if(match != null)
+	  				return match;
 			}
 		}
 		
 		if(parts[2] != null){
-
+			String[] nextParts = split(parts[2]);
 			for(Declaration d : getParametersList()){
-				match.addAll(d.lookup(parts[2]));
+				match = d.lookup(nextParts);
+				if(match != null)
+	  				return match;
 			}
 			for(Declaration d : getMethodBodyList()){
-				match.addAll(d.lookup(parts[2]));
+				match = d.lookup(nextParts);
+				if(match != null)
+	  				return match;
 			}
 		}
-   		return match;
+   		return null;
 	}
 	
-	eq FieldOrHookDeclaration.lookup(String label){
-		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-		String[] parts = split(label);
+	eq FieldOrHookDeclaration.lookup(String[] parts){
+		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+		Declaration match = null;
 		if(parts[1].equals(""))
-			match.addAll(localLookup(parts[0]));
+			match = localLookup(parts[0]);
 		return match;
 		
 	}
 	
-	syn java.util.List<Declaration> Declaration.localLookup(String label){
-		java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+	syn Declaration Declaration.localLookup(String label){
+		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
 		if(label.equals(this.getName()) || label.equals("*"))
-			match.add(this);
-		return match;
+			return this;
+		return null;
 	}
    
    //wildcards-not-supported-local lookup
-	/*
+	
    syn Declaration ASTNode.lookupNOWC(String label){
 	   if(this instanceof CompilationUnit)
 		   return ((CompilationUnit)this).lookupNOWC(label);
@@ -162,7 +183,7 @@ aspect NameAnalysis {
 			   return d;
 	   }
 	   return null;
-   }	*/
+   }	
    
 	//parts[0] - for local lookup, part[1] - for further lookup,
 	//parts[2] - for further lookup in case of **/*n wildcards

@@ -44,9 +44,12 @@ public class Main {
 		}
 		
 		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-		//match.addAll(root.lookup("subject.**.getC.hook"));
+		//final long start = System.nanoTime();
+		//match.addAll(root.lookup("subject.**.classhk1"));
+		//final long end = System.nanoTime();
 		//for(Declaration d : match)
 		//	System.out.println(d.qname());
+		//System.out.println("\nExecution Time: " + (end - start) + "ns");
 
 		//String[] res = Declaration.split("*.*.pp");
 		//System.out.println(res[0]);

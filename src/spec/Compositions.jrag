@@ -6,16 +6,16 @@ aspect Compositions{
 	inh Root Composer.getRoot();
 	eq CompositionProgram.getComposers(int i).getRoot() = getRoot();
 	
-	syn java.util.List<Declaration> Composer.getSource(){
+	syn Declaration Composer.getSource(){
 		return getRoot().lookup(getSourceName());
 	}
 	
-	syn java.util.List<Declaration> Composer.getTarget(){
+	syn Declaration Composer.getTarget(){
 		return getRoot().lookup(getTargetName());
 	}
 	
 	syn boolean Composer.isExhausted(){
-		return getTarget().isEmpty();
+		return getTarget() == null;
 	}
 	
 	syn Composer CompositionProgram.nextComposition(){
@@ -49,21 +49,20 @@ aspect Compositions{
 	public void Root.doCompositions() throws CompositionException{
 		Composer nextComposition = getCompositionProgram().nextComposition();
 		while(nextComposition != null){
-			//checkWellformedness();
-			java.util.List<Declaration> sources = nextComposition.getSource();
-			if(sources.size() != 1)
+			if(!isCorrect())
+				throw new CompositionException("System wellformedness violated.");
+			Declaration source = nextComposition.getSource();
+			Declaration target = nextComposition.getTarget();
+			if(source == null)
 				throw new CompositionException("Incorrect composition source fragment."); 
-			Declaration source = sources.get(0);
-			java.util.List<Declaration> targets = nextComposition.getTarget();
-			for(Declaration target : targets){
-				target.bind(source);
-			}
+			target.bind(source);
 			if(nextComposition instanceof BindExhaust){
 				source.removeSource();
 			}
 			nextComposition = getCompositionProgram().nextComposition();
 		}
-		checkWellformedness();
+		if(!isCorrect())
+			throw new CompositionException("System wellformedness violated.");
 	}
 		
 }

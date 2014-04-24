@@ -1,4 +1,4 @@
-class abc{
+class def{
 	method1(aa; bb;){
 		cc;
 	}
@@ -25,7 +25,7 @@ class abc{
 			cc;
 		}
 	}
-	
+
 	aa1;
 	aa2;
 	aa3;
@@ -106,14 +106,12 @@ class abc{
 	aa88;
 	aa89;
 	aa90;
-
-
-
-	class abc{
-		a;
-		b;
-		c;
-
-		[[classhk1]]
+	
+	class def{
+		d;
+		e;
+		f;
+	
+		[[classhk2]]
 	}
 }

@@ -1,3 +1,4 @@
-bind_copy  subject.*14.classhk  abc;
+bind_copy  subject.*29.classhk1  abc.abc;
+bind_copy  subject.*29.classhk2  def.def;
 
 

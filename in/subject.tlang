@@ -3,6 +3,9 @@ class subject{
 	field1;
 	field2;
 	field3;
+	field4;
+	field5;
+	field6;
 	
 	method1(param1;){
 		local1;
@@ -13,7 +16,73 @@ class subject{
 	method3(param3;){
 		local3;
 	}
+	method4(param4;){
+		local4;
+	}
+	method5(param5;){
+		local5;
+	}
+	method6(param6;){
+		local6;
+	}
+	
+	class inner1{
+		field1;
+		field2;
+		field3;
+		field4;
+		field5;
+		field6;
+	
+		method1(param1;){
+			local1;
+		}
+		method2(param2;){
+			local2;
+		}
+		method3(param3;){
+			local3;
+		}
+		method4(param4;){
+			local4;
+		}
+		method5(param5;){
+			local5;
+		}
+		method6(param6;){
+			local6;
+		}
 
-	[[classhk]]
+		class inner2{
+			field1;
+			field2;
+			field3;
+			field4;
+			field5;
+			field6;
+	
+			method1(param1;){
+				local1;
+			}
+			method2(param2;){
+				local2;
+			}
+			method3(param3;){
+				local3;
+			}
+			method4(param4;){
+				local4;
+			}
+			method5(param5;){
+				local5;
+			}
+			method6(param6;){
+				local6;
+			}
+		}
+	}
+
+	[[classhk1]]
+	[[classhk2]]
 }
 
