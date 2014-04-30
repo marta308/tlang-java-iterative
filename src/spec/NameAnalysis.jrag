@@ -34,7 +34,6 @@ aspect NameAnalysis {
 	}*/
 	  
 	syn Declaration Root.lookup(String declName){
-  		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
 		Declaration match = null;
   		for(CompilationUnit cu : getCompilationUnitsList()){
   			match = cu.lookup(declName);
@@ -46,19 +45,79 @@ aspect NameAnalysis {
 	
   
 	syn Declaration CompilationUnit.lookup(String label){
-		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
 		Declaration match = null;
 		for (Declaration d : getClassDeclarationList()){
-			match = d.lookup(Declaration.split(label));
+			match = d.lookup(label);
 			if(match != null)
   				return match;
 		}
 		return null;
 	}
 	
-	syn Declaration Declaration.lookup(String[] parts) = null;
+	syn Declaration Declaration.lookup(String label){
+		String[] parts = new String[2];
+		int dotindex = label.indexOf('.');
+		if(dotindex == -1){
+			parts[0] = label;
+			parts[1] = "";
+		}
+		else{
+			parts[0] = label.substring(0, dotindex);
+			parts[1] = label.substring(dotindex+1);
+		}
+		
+		if(parts[1] == "")
+			return localLookup(parts[0]);
+		if(localLookup(parts[0]) != null){
+			if(parts[0].equals("-1")){
+				Declaration match = this.lookup(parts[1]);
+				if(match != null)
+					return match;
+				return subtreeLookup(this, label);
+			}
+			if(parts[0].equals("0")){
+				return this.lookup(parts[1]);
+			}
+			if(parts[0].matches("[1-9][0-9]*")){
+				Declaration match = this.lookup(parts[1]);
+				if(match != null)
+					return match;
+				int num = Integer.parseInt(parts[0]) - 1;
+				return subtreeLookup(this, "" + num + "." + parts[1]);
+			}
+			return subtreeLookup(this, parts[1]);
+		}
+		return null;
+	}
 	
-	eq ClassDeclaration.lookup(String[] parts){
+	public static Declaration Declaration.subtreeLookup(Declaration decl, String label){
+		if(decl instanceof ClassDeclaration){
+			Declaration match = null; 
+			for(Declaration d : ((ClassDeclaration)decl).getClassBodyList()){
+				match = d.lookup(label);
+				if(match != null)
+					return match;
+			}
+			return null;
+		}
+		if(decl instanceof MethodDeclaration){
+			Declaration match = null;
+			for(Declaration d : ((MethodDeclaration)decl).getParametersList()){
+				match = d.lookup(label);
+				if(match != null)
+					return match;
+			}
+			for(Declaration d : ((MethodDeclaration)decl).getMethodBodyList()){
+				match = d.lookup(label);
+				if(match != null)
+					return match;
+			}
+			return null;
+		}
+		return null;
+	}
+	
+	/*eq ClassDeclaration.lookup(String[] parts){
 		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
 		Declaration match = null;
 		if(parts == null)
@@ -136,11 +195,10 @@ aspect NameAnalysis {
 			match = localLookup(parts[0]);
 		return match;
 		
-	}
+	} */
 	
 	syn Declaration Declaration.localLookup(String label){
-		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
-		if(label.equals(this.getName()) || label.equals("*"))
+		if(label.matches("-?[0-9]+") || label.equals("*") || label.equals(this.getName()))
 			return this;
 		return null;
 	}
@@ -187,7 +245,7 @@ aspect NameAnalysis {
    
 	//parts[0] - for local lookup, part[1] - for further lookup,
 	//parts[2] - for further lookup in case of **/*n wildcards
-	public static String[] Declaration.split(String label){
+	/*public static String[] Declaration.split(String label){
 		if(label.equals(""))
 			return null;
 		String[] parts = new String[3];
@@ -225,8 +283,8 @@ aspect NameAnalysis {
 		else
 			parts[2] = part1;
 		return parts;		
-	}
-	/*
+	} 
+
    //label1 - searched name, label2 - declarations' qname
    public static boolean Declaration.match(String label1, String label2){
 	   if(!label1.contains("*"))

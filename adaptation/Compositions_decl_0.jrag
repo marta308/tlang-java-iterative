@@ -141,7 +141,7 @@ aspect Compositions{
 	rewrite DeclarationHook {
 		when(//getCompositionProgram().nextComposition() != null &&
 				getCompositionProgram().nextComposition().getTarget() == this
-				&& getCompositionProgram().getRoot().checkWellformedness()
+				//&& getCompositionProgram().getRoot().checkWellformedness()
 				)
 		to Declaration{
 			Composer composer = LookUpComposer(this);
@@ -154,7 +154,7 @@ aspect Compositions{
 	
 	rewrite List{
 		when(isParentOfExComposerSource()
-				&& getCompositionProgram().getRoot().checkWellformedness()
+				//&& getCompositionProgram().getRoot().checkWellformedness()
 				)
 		to List{
 			int childIndex = indexOfChildToRemove();

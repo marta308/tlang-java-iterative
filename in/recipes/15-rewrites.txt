@@ -1,4 +1,11 @@
-bind_copy  subject.*29.classhk1  abc.abc;
-bind_copy  subject.*29.classhk2  def.def;
+bind_copy  subject.*1.classhk1  abc.**.abc;
+bind_copy  subject.*1.classhk2  def.**.def;
+bind_copy  subject.*1.classhk3  ghi.**.ghi;
+bind_copy  subject.*1.classhk4  jkl.**.jkl;
+bind_copy  subject.*1.classhk5  mno.**.mno;
+bind_copy  subject.*1.classhk6  pqr.**.pqr;
+bind_copy  subject.*1.classhk7  stu.**.stu;
+bind_copy  subject.*1.classhk8  vwx.**.vwx;
+
 
 

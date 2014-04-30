@@ -3,6 +3,7 @@ package exampleprogs;
 import java.util.Collection;
 import java.util.LinkedList;
 
+
 import AST.*;
 
 public class Main {
@@ -17,7 +18,7 @@ public class Main {
 		mainOneLoop(recipe, indir);
 
 		final long start = new java.util.Date().getTime();
-		
+
 		for (int i = 0; i < 10; i++) {
 			mainOneLoop(recipe, indir);
 		}
@@ -38,17 +39,17 @@ public class Main {
 		Root root = new Root(compUnits, cp);
 				
 		try {
-			root.doCompositions();
+			PerformCompositions.performCompositions(root);
 		} catch (CompositionException e) {
 			System.out.println(e.getMessage());
 		}
 		
-		//java.util.List<Declaration> match = new java.util.LinkedList<Declaration>();
+		//Declaration match = null;
 		//final long start = System.nanoTime();
-		//match.addAll(root.lookup("subject.**.classhk1"));
+		//match = root.lookup("subject.11.classhk2");
 		//final long end = System.nanoTime();
 		//for(Declaration d : match)
-		//	System.out.println(d.qname());
+		//System.out.println(match.qname());
 		//System.out.println("\nExecution Time: " + (end - start) + "ns");
 
 		//String[] res = Declaration.split("*.*.pp");

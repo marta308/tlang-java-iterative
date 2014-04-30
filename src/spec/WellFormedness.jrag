@@ -60,8 +60,9 @@ aspect WellFormedness {
 		return (this == parent.lookup(parentName + getName()).get(0));
 	} */
 	
-	public void Root.checkWellformedness() throws CompositionException{
+	public boolean Root.checkWellformedness() throws CompositionException{
 		if(!isCorrect())
 			throw new CompositionException("System wellformedness violated.");
+		else return true;
 	}
 }

@@ -24,94 +24,541 @@ class def{
 		method4(aa; bb;){
 			cc;
 		}
+		class innermess1{
+			method1(aa; bb;){
+				cc;
+			}
+			method2(aa; bb;){
+				cc;
+			}
+			method3(aa; bb;){
+				cc;
+			}
+			method4(aa; bb;){
+				cc;
+			}
+			class innermess2{
+				method1(aa; bb;){
+					cc;
+				}
+				method2(aa; bb;){
+					cc;
+				}
+				method3(aa; bb;){
+					cc;
+				}
+				method4(aa; bb;){
+					cc;
+				}
+				class innermess3{
+					method1(aa; bb;){
+						cc;
+					}
+					method2(aa; bb;){
+						cc;
+					}
+					method3(aa; bb;){
+						cc;
+					}
+					method4(aa; bb;){
+						cc;
+					}
+					class innermess4{
+						method1(aa; bb;){
+							cc;
+						}
+						method2(aa; bb;){
+							cc;
+						}
+						method3(aa; bb;){
+							cc;
+						}
+						method4(aa; bb;){
+							cc;
+						}
+						class innermess5{
+							method1(aa; bb;){
+								cc;
+							}
+							method2(aa; bb;){
+								cc;
+							}
+							method3(aa; bb;){
+								cc;
+							}
+							method4(aa; bb;){
+								cc;
+							}
+							class innermess6{
+								method1(aa; bb;){
+									cc;
+								}
+								method2(aa; bb;){
+									cc;
+								}
+								method3(aa; bb;){
+									cc;
+								}
+								method4(aa; bb;){
+									cc;
+								}
+								class innermess7{
+									method1(aa; bb;){
+										cc;
+									}
+									method2(aa; bb;){
+										cc;
+									}
+									method3(aa; bb;){
+										cc;
+									}
+									method4(aa; bb;){
+										cc;
+									}
+									class innermess8{
+										method1(aa; bb;){
+											cc;
+										}
+										method2(aa; bb;){
+											cc;
+										}
+										method3(aa; bb;){
+											cc;
+										}
+										method4(aa; bb;){
+											cc;
+										}
+										class innermess9{
+											method1(aa; bb;){
+												cc;
+											}
+											method2(aa; bb;){
+												cc;
+											}
+											method3(aa; bb;){
+												cc;
+											}
+											method4(aa; bb;){
+												cc;
+											}
+											class innermess{
+												method1(aa; bb;){
+													cc;
+												}
+												method2(aa; bb;){
+													cc;
+												}
+												method3(aa; bb;){
+													cc;
+												}
+												method4(aa; bb;){
+													cc;
+												}
+												class innermess1{
+													method1(aa; bb;){
+														cc;
+													}
+													method2(aa; bb;){
+														cc;
+													}
+													method3(aa; bb;){
+														cc;
+													}
+													method4(aa; bb;){
+														cc;
+													}
+													class innermess2{
+														method1(aa; bb;){
+															cc;
+														}
+														method2(aa; bb;){
+															cc;
+														}
+														method3(aa; bb;){
+															cc;
+														}
+														method4(aa; bb;){
+															cc;
+														}
+														class innermess3{
+															method1(aa; bb;){
+																cc;
+															}
+															method2(aa; bb;){
+																cc;
+															}
+															method3(aa; bb;){
+																cc;
+															}
+															method4(aa; bb;){
+																cc;
+															}
+															class innermess4{
+																method1(aa; bb;){
+																	cc;
+																}
+																method2(aa; bb;){
+																	cc;
+																}
+																method3(aa; bb;){
+																	cc;
+																}
+																method4(aa; bb;){
+																	cc;
+																}
+																class innermess5{
+																	method1(aa; bb;){
+																		cc;
+																	}
+																	method2(aa; bb;){
+																		cc;
+																	}
+																	method3(aa; bb;){
+																		cc;
+																	}
+																	method4(aa; bb;){
+																		cc;
+																	}
+																	class innermess6{
+																		method1(aa; bb;){
+																			cc;
+																		}
+																		method2(aa; bb;){
+																			cc;
+																		}
+																		method3(aa; bb;){
+																			cc;
+																		}
+																		method4(aa; bb;){
+																			cc;
+																		}
+																		class innermess7{
+																			method1(aa; bb;){
+																				cc;
+																			}
+																			method2(aa; bb;){
+																				cc;
+																			}
+																			method3(aa; bb;){
+																				cc;
+																			}
+																			method4(aa; bb;){
+																				cc;
+																			}
+																			class innermess8{
+																				method1(aa; bb;){
+																					cc;
+																				}
+																				method2(aa; bb;){
+																					cc;
+																				}
+																				method3(aa; bb;){
+																					cc;
+																				}
+																				method4(aa; bb;){
+																					cc;
+																				}
+																				class innermess9{
+																					method1(aa; bb;){
+																						cc;
+																					}
+																					method2(aa; bb;){
+																						cc;
+																					}
+																					method3(aa; bb;){
+																						cc;
+																					}
+																					method4(aa; bb;){
+																						cc;
+																					}
+																					class innermess1{
+																						method1(aa; bb;){
+																							cc;
+																						}
+																						method2(aa; bb;){
+																							cc;
+																						}
+																						method3(aa; bb;){
+																							cc;
+																						}
+																						method4(aa; bb;){
+																							cc;
+																						}
+																						class innermess2{
+																							method1(aa; bb;){
+																								cc;
+																							}
+																							method2(aa; bb;){
+																								cc;
+																							}
+																							method3(aa; bb;){
+																								cc;
+																							}
+																							method4(aa; bb;){
+																								cc;
+																							}
+																							class innermess3{
+																								method1(aa; bb;){
+																									cc;
+																								}
+																								method2(aa; bb;){
+																									cc;
+																								}
+																								method3(aa; bb;){
+																									cc;
+																								}
+																								method4(aa; bb;){
+																									cc;
+																								}
+																								class innermess4{
+																									method1(aa; bb;){
+																										cc;
+																									}
+																									method2(aa; bb;){
+																										cc;
+																									}
+																									method3(aa; bb;){
+																										cc;
+																									}
+																									method4(aa; bb;){
+																										cc;
+																									}
+																									class innermess5{
+																										method1(aa; bb;){
+																											cc;
+																										}
+																										method2(aa; bb;){
+																											cc;
+																										}
+																										method3(aa; bb;){
+																											cc;
+																										}
+																										method4(aa; bb;){
+																											cc;
+																										}
+																										class innermess6{
+																											method1(aa; bb;){
+																												cc;
+																											}
+																											method2(aa; bb;){
+																												cc;
+																											}
+																											method3(aa; bb;){
+																												cc;
+																											}
+																											method4(aa; bb;){
+																												cc;
+																											}
+																											class innermess7{
+																												method1(aa; bb;){
+																													cc;
+																												}
+																												method2(aa; bb;){
+																													cc;
+																												}
+																												method3(aa; bb;){
+																													cc;
+																												}
+																												method4(aa; bb;){
+																													cc;
+																												}
+																												class innermess8{
+																													method1(aa; bb;){
+																														cc;
+																													}
+																													method2(aa; bb;){
+																														cc;
+																													}
+																													method3(aa; bb;){
+																														cc;
+																													}
+																													method4(aa; bb;){
+																														cc;
+																													}
+																													class innermess9{
+																														method1(aa; bb;){
+																															cc;
+																														}
+																														method2(aa; bb;){
+																															cc;
+																														}
+																														method3(aa; bb;){
+																															cc;
+																														}
+																														method4(aa; bb;){
+																															cc;
+																														}
+																														class innermess{
+																															method1(aa; bb;){
+																																cc;
+																															}
+																															method2(aa; bb;){
+																																cc;
+																															}
+																															method3(aa; bb;){
+																																cc;
+																															}
+																															method4(aa; bb;){
+																																cc;
+																															}
+																															class innermess1{
+																																method1(aa; bb;){
+																																	cc;
+																																}
+																																method2(aa; bb;){
+																																	cc;
+																																}
+																																method3(aa; bb;){
+																																	cc;
+																																}
+																																method4(aa; bb;){
+																																	cc;
+																																}
+																																class innermess2{
+																																	method1(aa; bb;){
+																																		cc;
+																																	}
+																																	method2(aa; bb;){
+																																		cc;
+																																	}
+																																	method3(aa; bb;){
+																																		cc;
+																																	}
+																																	method4(aa; bb;){
+																																		cc;
+																																	}
+																																	class innermess3{
+																																		method1(aa; bb;){
+																																			cc;
+																																		}
+																																		method2(aa; bb;){
+																																			cc;
+																																		}
+																																		method3(aa; bb;){
+																																			cc;
+																																		}
+																																		method4(aa; bb;){
+																																			cc;
+																																		}
+																																		class innermess4{
+																																			method1(aa; bb;){
+																																				cc;
+																																			}
+																																			method2(aa; bb;){
+																																				cc;
+																																			}
+																																			method3(aa; bb;){
+																																				cc;
+																																			}
+																																			method4(aa; bb;){
+																																				cc;
+																																			}
+																																			class innermess5{
+																																				method1(aa; bb;){
+																																					cc;
+																																				}
+																																				method2(aa; bb;){
+																																					cc;
+																																				}
+																																				method3(aa; bb;){
+																																					cc;
+																																				}
+																																				method4(aa; bb;){
+																																					cc;
+																																				}
+																																				class innermess6{
+																																					method1(aa; bb;){
+																																						cc;
+																																					}
+																																					method2(aa; bb;){
+																																						cc;
+																																					}
+																																					method3(aa; bb;){
+																																						cc;
+																																					}
+																																					method4(aa; bb;){
+																																						cc;
+																																					}
+																																					class innermess7{
+																																						method1(aa; bb;){
+																																							cc;
+																																						}
+																																						method2(aa; bb;){
+																																							cc;
+																																						}
+																																						method3(aa; bb;){
+																																							cc;
+																																						}
+																																						method4(aa; bb;){
+																																							cc;
+																																						}
+																																						class innermess8{
+																																							method1(aa; bb;){
+																																								cc;
+																																							}
+																																							method2(aa; bb;){
+																																								cc;
+																																							}
+																																							method3(aa; bb;){
+																																								cc;
+																																							}
+																																							method4(aa; bb;){
+																																								cc;
+																																							}
+																																							class innermess9{
+																																								method1(aa; bb;){
+																																									cc;
+																																								}
+																																								method2(aa; bb;){
+																																									cc;
+																																								}
+																																								method3(aa; bb;){
+																																									cc;
+																																								}
+																																								method4(aa; bb;){
+																																									cc;
+																																								}
+																																							}
+																																						}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
-
-	aa1;
-	aa2;
-	aa3;
-	aa4;
-	aa5;
-	aa6;
-	aa7;
-	aa8;
-	aa9;
-	aa10;
-	aa11;
-	aa12;
-	aa13;
-	aa14;
-	aa15;
-	aa16;
-	aa17;
-	aa18;
-	aa19;
-	aa20;
-	aa21;
-	aa22;
-	aa23;
-	aa24;
-	aa25;
-	aa26;
-	aa27;
-	aa28;
-	aa29;
-	aa30;
-	aa41;
-	aa42;
-	aa43;
-	aa44;
-	aa45;
-	aa46;
-	aa47;
-	aa48;
-	aa49;
-	aa50;
-	aa51;
-	aa52;
-	aa53;
-	aa54;
-	aa55;
-	aa56;
-	aa57;
-	aa58;
-	aa59;
-	aa60;
-	aa61;
-	aa62;
-	aa63;
-	aa64;
-	aa65;
-	aa66;
-	aa67;
-	aa68;
-	aa69;
-	aa70;
-	aa71;
-	aa72;
-	aa73;
-	aa74;
-	aa75;
-	aa76;
-	aa77;
-	aa78;
-	aa79;
-	aa80;
-	aa81;
-	aa82;
-	aa83;
-	aa84;
-	aa85;
-	aa86;
-	aa87;
-	aa88;
-	aa89;
-	aa90;
 	
 	class def{
-		d;
-		e;
-		f;
-	
 		[[classhk2]]
 	}
 }
