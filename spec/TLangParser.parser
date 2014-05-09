@@ -1,0 +1,71 @@
+%header {:
+ // this code is inlined before the generated parser
+ package syntax;
+ import AST.*;
+:};
+
+%embed {:
+ // this code is inlined in the generated parser class
+:};
+
+%goal goal;
+
+// Productions with semantic actions building the JastAdd AST
+
+compilationunit goal =
+  class_list {: return new CompilationUnit(class_list); :}
+  ;
+
+List statement_list = 
+	  statement 	{: return new List().add(statement); :}
+	| statement_list statement 	{: return statement_list.add(statement); :}
+	|				{: return new List(); :}
+	;
+	   
+List declaration_list =
+    declaration                  {: return new List().add(declaration); :}
+  | declaration_list declaration {: return declaration_list.add(declaration); :}
+  | 							{: return new List(); :}
+  ;
+List field_list =
+    field_declaration                  {: return new List().add(field_declaration); :}
+  | field_list field_declaration {: return field_list.add(field_declaration); :}
+  | 							{: return new List(); :}
+  ;
+List class_list =
+	  class_declaration	{: return new List().add(class_declaration); :}
+	| class_list class_declaration	{: return class_list.add(class_declaration); :}
+	|				{: return new List(); :}
+	;
+//Declaration declaration =
+//    CLASS IDENTIFIER LBRACE statement_list RBRACE      {: return new ClassDeclaration(IDENTIFIER, statement_list); :}
+//  | IDENTIFIER LPAREN declaration_list.params RPAREN LBRACE statement_list.locals RBRACE  {: return new MethodDeclaration(IDENTIFIER, params, locals); :}
+//  | IDENTIFIER SEMI      {: return new FieldDeclaration(IDENTIFIER); :}
+//  | LSQUARE LSQUARE IDENTIFIER RSQUARE RSQUARE	{: return new DeclarationHook(IDENTIFIER); :}
+//  ;
+Statement statement = 
+	  declaration	{: return declaration; :}
+	| reference		{: return reference; :}
+	;  
+Declaration declaration =
+	  class_declaration	{: return class_declaration; :}
+	| method_declaration	{: return method_declaration; :}
+	| field_declaration	{: return field_declaration; :}
+	| declaration_hook	{: return declaration_hook; :}
+	;
+
+ClassDeclaration class_declaration =
+	CLASS IDENTIFIER LBRACE declaration_list RBRACE  {: return new ClassDeclaration(IDENTIFIER, declaration_list); :}
+	;
+MethodDeclaration method_declaration = 
+	IDENTIFIER LPAREN field_list.params RPAREN LBRACE statement_list.locals RBRACE  {: return new MethodDeclaration(IDENTIFIER, params, locals); :}
+	;
+FieldDeclaration field_declaration = 
+	IDENTIFIER SEMI      {: return new FieldDeclaration(IDENTIFIER); :}
+	;
+DeclarationHook declaration_hook = 
+	LSQUARE LSQUARE IDENTIFIER RSQUARE RSQUARE	{: return new DeclarationHook(IDENTIFIER); :}
+	;
+Reference reference = 
+	USE IDENTIFIER		{: return new Reference(IDENTIFIER); :}
+	;

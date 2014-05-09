@@ -1,0 +1,11 @@
+
+
+
+CompilationUnit ::= ClassDeclaration*;
+abstract Statement ::= <Name:String>;
+abstract Declaration : Statement;
+ClassDeclaration : Declaration ::= ClassBody:Declaration*;
+MethodDeclaration : Declaration ::= Parameters:FieldDeclaration* MethodBody:Statement*;
+FieldDeclaration : Declaration;
+DeclarationHook : Declaration;
+Reference : Statement;

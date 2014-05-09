@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import syntax.TLangParser;
+import syntax.TLangScanner;
+
 public class Compiler {
 
 	public static List<CompilationUnit> compile(String indir) {

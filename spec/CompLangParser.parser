@@ -1,6 +1,7 @@
 %header {:
  // this code is inlined before the generated parser
- package AST;
+ package syntax;
+ import AST.*;
 :};
 
 %embed {:

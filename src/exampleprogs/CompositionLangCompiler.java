@@ -3,8 +3,8 @@ package exampleprogs;
 import java.io.FileReader;
 
 import AST.CompositionProgram;
-import AST.CompLangParser;
-import AST.CompLangScanner;
+import syntax.CompLangParser;
+import syntax.CompLangScanner;
 
 public class CompositionLangCompiler {
 	

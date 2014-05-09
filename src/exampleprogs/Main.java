@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		String recipe = getFilename(args);
 		String indir = args[1];
-		String outdir = "out/iter";
+		String outdir = args[2];
 
 		mainOneLoop(recipe, indir);
 
@@ -46,7 +46,7 @@ public class Main {
 		
 		//Declaration match = null;
 		//final long start = System.nanoTime();
-		//match = root.lookup("subject.11.classhk2");
+		//match = root.lookup("subject.inner1.method2.-1");
 		//final long end = System.nanoTime();
 		//for(Declaration d : match)
 		//System.out.println(match.qname());
@@ -61,8 +61,8 @@ public class Main {
 	}
 
 	public static String getFilename(String[] args) {
-		if (args.length != 2) {
-			System.out.println("Usage: composition recipe file, infolder");
+		if (args.length != 3) {
+			System.out.println("Usage: composition recipe file, infolder, outfolder");
 			System.exit(1);
 		}
 		return args[0];

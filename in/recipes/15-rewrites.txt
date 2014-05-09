@@ -1,11 +1,38 @@
-bind_copy  subject.*1.classhk1  abc.**.abc;
-bind_copy  subject.*1.classhk2  def.**.def;
-bind_copy  subject.*1.classhk3  ghi.**.ghi;
-bind_copy  subject.*1.classhk4  jkl.**.jkl;
-bind_copy  subject.*1.classhk5  mno.**.mno;
-bind_copy  subject.*1.classhk6  pqr.**.pqr;
-bind_copy  subject.*1.classhk7  stu.**.stu;
-bind_copy  subject.*1.classhk8  vwx.**.vwx;
-
+bind_copy  subject.*59.classhk1  abc.**.abc1;
+bind_copy  subject.*59.classhk2  abc.**.abc2;
+bind_copy  subject.*59.classhk3  abc.**.abc3;
+bind_copy  subject.*59.classhk4  abc.**.abc4;
+bind_copy  subject.*59.classhk5  abc.**.abc5;
+bind_copy  subject.*59.classhk6  abc.**.abc6;
+bind_copy  subject.*59.classhk7  abc.**.abc7;
+bind_copy  subject.*59.classhk8  abc.**.abc8;
+bind_copy  subject.*59.classhk9  abc.**.abc9;
+bind_copy  subject.*59.classhk10  abc.**.abc10;
+bind_copy  subject.*59.classhk11  abc.**.abc11;
+bind_copy  subject.*59.classhk12  abc.**.abc12;
+bind_copy  subject.*59.classhk13  abc.**.abc13;
+bind_copy  subject.*59.classhk14  abc.**.abc14;
+bind_copy  subject.*59.classhk15  abc.**.abc15;
+bind_copy  subject.*59.classhk16  abc.**.abc16;
+bind_copy  subject.*59.classhk17  abc.**.abc17;
+bind_copy  subject.*59.classhk18  abc.**.abc18;
+bind_copy  subject.*59.classhk19  abc.**.abc19;
+bind_copy  subject.*59.classhk20  abc.**.abc20;
+bind_copy  subject.*59.classhk21  abc.**.abc21;
+bind_copy  subject.*59.classhk22  abc.**.abc22;
+bind_copy  subject.*59.classhk23  abc.**.abc23;
+bind_copy  subject.*59.classhk24  abc.**.abc24;
+bind_copy  subject.*59.classhk25  abc.**.abc25;
+bind_copy  subject.*59.classhk26  abc.**.abc26;
+bind_copy  subject.*59.classhk27  abc.**.abc27;
+bind_copy  subject.*59.classhk28  abc.**.abc28;
+bind_copy  subject.*59.classhk29  abc.**.abc29;
+bind_copy  subject.*59.classhk30  abc.**.abc30;
+bind_copy  subject.*59.classhk31  abc.**.abc31;
+bind_copy  subject.*59.classhk32  abc.**.abc32;
+bind_copy  subject.*59.classhk33  abc.**.abc33;
+bind_copy  subject.*59.classhk34  abc.**.abc34;
+bind_copy  subject.*59.classhk35  abc.**.abc35;
+bind_copy  subject.*59.classhk36  abc.**.abc36;
 
 

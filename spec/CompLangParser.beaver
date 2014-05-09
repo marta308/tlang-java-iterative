@@ -1,0 +1,45 @@
+%header {: // Generated from src/spec/CompLangParser.parser
+// this code is inlined before the generated parser
+ package syntax;
+ import AST.*; :};
+%embed {: // Generated from src/spec/CompLangParser.parser
+// this code is inlined in the generated parser class :};
+%terminals BINDCOPY;
+%terminals IDENTIFIER;
+%terminals SEMI;
+%terminals BINDEXHAUST;
+%typeof composer = "Composer";
+%typeof composer_list = "List";
+%typeof goal = "compositionprogram";
+%goal goal;
+goal =
+    composer_list.composer_list {: ASTNode _node_ = new CompositionProgram(composer_list);
+        _node_.setStart(Symbol.getLine(_symbol_composer_list.getStart()), (short) Symbol.getColumn(_symbol_composer_list.getStart()));
+        _node_.setEnd(Symbol.getLine(_symbol_composer_list.getEnd()), (short) Symbol.getColumn(_symbol_composer_list.getEnd()));
+        return new Symbol(_node_); :}
+  ;
+composer_list =
+    composer.composer {: ASTNode _node_ = new List().add(composer);
+        _node_.setStart(Symbol.getLine(_symbol_composer.getStart()), (short) Symbol.getColumn(_symbol_composer.getStart()));
+        _node_.setEnd(Symbol.getLine(_symbol_composer.getEnd()), (short) Symbol.getColumn(_symbol_composer.getEnd()));
+        return new Symbol(_node_); :}
+
+  | composer_list.composer_list composer.composer {: ASTNode _node_ = composer_list.add(composer);
+        _node_.setStart(Symbol.getLine(_symbol_composer_list.getStart()), (short) Symbol.getColumn(_symbol_composer_list.getStart()));
+        _node_.setEnd(Symbol.getLine(_symbol_composer.getEnd()), (short) Symbol.getColumn(_symbol_composer.getEnd()));
+        return new Symbol(_node_); :}
+  ;
+composer =
+    BINDCOPY.BINDCOPY IDENTIFIER.target IDENTIFIER.source SEMI.SEMI {: ASTNode _node_ = new BindCopy (((String)target.value), ((String)source.value));
+        _node_.setStart(Symbol.getLine(BINDCOPY.getStart()), (short) Symbol.getColumn(BINDCOPY.getStart()));
+        _node_.setEnd(Symbol.getLine(SEMI.getEnd()), (short) Symbol.getColumn(SEMI.getEnd()));
+        return new Symbol(_node_); :}
+
+  | BINDEXHAUST.BINDEXHAUST IDENTIFIER.target IDENTIFIER.source SEMI.SEMI {: ASTNode _node_ = new BindExhaust (((String)target.value), ((String)source.value));
+        _node_.setStart(Symbol.getLine(BINDEXHAUST.getStart()), (short) Symbol.getColumn(BINDEXHAUST.getStart()));
+        _node_.setEnd(Symbol.getLine(SEMI.getEnd()), (short) Symbol.getColumn(SEMI.getEnd()));
+        return new Symbol(_node_); :}
+  ;
+
+
+

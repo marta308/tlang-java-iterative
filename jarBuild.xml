@@ -6,11 +6,11 @@
 	
 <import file="build.xml"/>
 	
-	<target name="iterative_0">
+	<target name="iterative_0" description="iterative version no check">
 		<antcall target="cleanGen"></antcall>
-		<copy file="adaptation/Compositions_iter_0.jrag" tofile="src/spec/Compositions.jrag" overwrite="true"/>
+		<copy file="adaptation/Compositions_iter_0.jrag" tofile="spec/Compositions.jrag" overwrite="true"/>
 		<copy file="adaptation/PerformCompositions_iter.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true"/>
-		<eclipse.refreshLocal resource="./TLang/src" depth="infinite"/>
+		<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 		<antcall target="build_iter"></antcall>
 		<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 		<jar destfile="./tlang-iterative_0.jar" filesetmanifest="mergewithoutmain">
@@ -23,11 +23,11 @@
 		</jar>
 	</target>
 	
-	<target name="iterative_1">
+	<target name="iterative_1" description="iterative version with check">
 		<antcall target="cleanGen"></antcall>
-		<copy file="adaptation/Compositions_iter_1.jrag" tofile="src/spec/Compositions.jrag" overwrite="true"/>
+		<copy file="adaptation/Compositions_iter_1.jrag" tofile="spec/Compositions.jrag" overwrite="true"/>
 		<copy file="adaptation/PerformCompositions_iter.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true"/>
-		<eclipse.refreshLocal resource="./TLang/src" depth="infinite"/>
+		<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 		<antcall target="build_iter"></antcall>
 		<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 		<jar destfile="./tlang-iterative_1.jar" filesetmanifest="mergewithoutmain">
@@ -40,11 +40,11 @@
 		</jar>
 	</target>
 	
-	<target name="iterative_n">
+	<target name="iterative_n" description="iterative version repetitive check">
 		<antcall target="cleanGen"></antcall>
-		<copy file="adaptation/Compositions_iter_n.jrag" tofile="src/spec/Compositions.jrag" overwrite="true"/>
+		<copy file="adaptation/Compositions_iter_n.jrag" tofile="spec/Compositions.jrag" overwrite="true"/>
 		<copy file="adaptation/PerformCompositions_iter.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true"/>
-		<eclipse.refreshLocal resource="./TLang/src" depth="infinite"/>
+		<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 		<antcall target="build_iter"></antcall>
 		<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 		<jar destfile="./tlang-iterative_n.jar" filesetmanifest="mergewithoutmain">
@@ -57,11 +57,11 @@
 		</jar>
 	</target>
 	
-	<target name="declarative_0">
+	<target name="declarative_0" description="declarative version no check">
 			<antcall target="cleanGen"></antcall>
-			<copy file="adaptation/Compositions_decl_0.jrag" tofile="src/spec/Compositions.jrag" overwrite="true"/>
+			<copy file="adaptation/Compositions_decl_0.jrag" tofile="spec/Compositions.jrag" overwrite="true"/>
 			<copy file="adaptation/PerformCompositions_decl_0.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true"/>
-			<eclipse.refreshLocal resource="./TLang/src" depth="infinite"/>
+			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 			<antcall target="build_decl"></antcall>
 			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 			<jar destfile="./tlang-declarative_0.jar" filesetmanifest="mergewithoutmain">
@@ -74,11 +74,11 @@
 			</jar>
 		</target>
 		
-		<target name="declarative_1">
+		<target name="declarative_1" description="declarative version with check">
 			<antcall target="cleanGen"></antcall>
-			<copy file="adaptation/Compositions_decl_0.jrag" tofile="src/spec/Compositions.jrag" overwrite="true"/>
+			<copy file="adaptation/Compositions_decl_0.jrag" tofile="spec/Compositions.jrag" overwrite="true"/>
 			<copy file="adaptation/PerformCompositions_decl_1-n.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true"/>
-			<eclipse.refreshLocal resource="./TLang/src" depth="infinite"/>
+			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 			<antcall target="build_decl"></antcall>
 			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 			<jar destfile="./tlang-declarative_1.jar" filesetmanifest="mergewithoutmain">
@@ -91,11 +91,11 @@
 			</jar>
 		</target>
 		
-		<target name="declarative_n">
+		<target name="declarative_n" description="declarative version repetitive check">
 			<antcall target="cleanGen"></antcall>
-			<copy file="adaptation/Compositions_decl_n.jrag" tofile="src/spec/Compositions.jrag" overwrite="true"/>
+			<copy file="adaptation/Compositions_decl_n.jrag" tofile="spec/Compositions.jrag" overwrite="true"/>
 			<copy file="adaptation/PerformCompositions_decl_1-n.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true"/>
-			<eclipse.refreshLocal resource="./TLang/src" depth="infinite"/>
+			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 			<antcall target="build_decl"></antcall>
 			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
 			<jar destfile="./tlang-declarative_n.jar" filesetmanifest="mergewithoutmain">

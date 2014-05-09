@@ -1,13 +1,13 @@
-package AST; // The generated parser will belong to package AST
+package syntax; // The generated parser will belong to package AST
 
-import AST.CompLangParser.Terminals; // The terminals are implicitly defined in the parser
+import syntax.TLangParser.Terminals; // The terminals are implicitly defined in the parser
 
 %%
 
 // define the signature for the generated scanner
 %public
 %final
-%class CompLangScanner 
+%class TLangScanner 
 %extends beaver.Scanner
 
 // the interface between the scanner and the parser is the nextToken() method
@@ -27,7 +27,7 @@ import AST.CompLangParser.Terminals; // The terminals are implicitly defined in 
 %}
 
 WhiteSpace = [ ] | \t | \f | \n | \r | \r\n
-Identifier = [:jletter:]([:jletterdigit:] | "." | "*")*
+Identifier = [:jletter:]([:jletterdigit:] | ".")*
 
 %%
 
@@ -35,8 +35,14 @@ Identifier = [:jletter:]([:jletterdigit:] | "." | "*")*
 {WhiteSpace}  { }
 
 // token definitions
-"bind_copy"       { return sym(Terminals.BINDCOPY); }
-"bind_exhaust"    { return sym(Terminals.BINDEXHAUST); }
+"class"       { return sym(Terminals.CLASS); }
+"use"       { return sym(Terminals.USE); }
 {Identifier}  { return sym(Terminals.IDENTIFIER); }
 ";"           { return sym(Terminals.SEMI); }
+"("           { return sym(Terminals.LPAREN); }
+")"           { return sym(Terminals.RPAREN); }
+"{"           { return sym(Terminals.LBRACE); }
+"}"           { return sym(Terminals.RBRACE); }
+"["           { return sym(Terminals.LSQUARE); }
+"]"           { return sym(Terminals.RSQUARE); }
 <<EOF>>       { return sym(Terminals.EOF); }

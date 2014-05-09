@@ -18,14 +18,16 @@ aspect WellFormedness {
 		return true;
 	}
 	
-	syn boolean Declaration.isCorrect();
+	syn boolean Statement.isCorrect();
 	
 	eq ClassDeclaration.isCorrect(){
 		if (!this.isCorrectLocal())
 			return false;
-		for(Declaration d : getClassBodyList()){
-			if(!d.isCorrect())
-				return false;
+		for(Statement d : getClassBodyList()){
+			if(!(d instanceof Reference)){
+				if(!((Declaration)d).isCorrect())
+					return false;
+			}
 		}
 		return true;
 	}
@@ -37,19 +39,28 @@ aspect WellFormedness {
 			if(!d.isCorrect())
 				return false;
 		}
-		for(Declaration d : getMethodBodyList()){
+		for(Statement d : getMethodBodyList()){
 			if(!d.isCorrect())
 				return false;
 		}
 		return true;
 	}
 	
-	eq FieldOrHookDeclaration.isCorrect(){
+	eq FieldDeclaration.isCorrect(){
+		return this.isCorrectLocal();
+	}	
+	eq DeclarationHook.isCorrect(){
+		return this.isCorrectLocal();
+	}
+	eq Reference.isCorrect(){
 		return this.isCorrectLocal();
 	}
 	
 	syn boolean Declaration.isCorrectLocal(){
 		return (this == getParent().getParent().lookupNOWC(getName()));
+	}
+	syn boolean Reference.isCorrectLocal(){
+		return lookupRef(getName());
 	}
 	/*
 	syn boolean Declaration.isCorrectLocal(){

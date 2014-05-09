@@ -9,7 +9,7 @@ aspect PrettyPrint {
     writer.close();
   }
   
-  public void Declaration.pp(java.io.Writer writer, int indent) throws java.io.IOException{}
+  public void Statement.pp(java.io.Writer writer, int indent) throws java.io.IOException{}
   
   public void ClassDeclaration.pp(java.io.Writer writer, int indent) throws java.io.IOException{
   	for(int i = 0; i < indent; i++)
@@ -33,7 +33,7 @@ aspect PrettyPrint {
     for(int i = 0; i < indent+1; i++)
   		writer.write("- ");
   	writer.write("Method Body:\n");
-    for (Declaration d:getMethodBodyList()) {
+    for (Statement d:getMethodBodyList()) {
       d.pp(writer, indent + 1);
     }
   }
@@ -49,5 +49,11 @@ aspect PrettyPrint {
   		writer.write("- ");
     writer.write("DeclarationHook: " + getName() + "\n");
   }
+  
+  public void Reference.pp(java.io.Writer writer, int indent) throws java.io.IOException{
+	  	for(int i = 0; i < indent; i++)
+	  		writer.write("- ");
+	    writer.write("Reference: " + getName() + "\n");
+	  }
   
 }

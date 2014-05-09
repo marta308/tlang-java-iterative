@@ -9,7 +9,10 @@ class subject{
 		field6;
 	
 		method1(param1;){
+			use field1
 			local1;
+			use param1
+			use inner2.method6
 		}
 		method2(param2;){
 			local2;
@@ -36,7 +39,9 @@ class subject{
 			field6;
 	
 			method1(param1;){
+				use inner1.field3
 				local1;
+				use method2
 			}
 			method2(param2;){
 				local2;
@@ -64,5 +69,43 @@ class subject{
 	[[classhk6]]
 	[[classhk7]]
 	[[classhk8]]
+	[[classhk9]]
+	[[classhk10]]
+	[[classhk11]]
+	[[classhk12]]
+	[[classhk13]]
+	[[classhk14]]
+	[[classhk15]]
+	[[classhk16]]
+	[[classhk17]]
+	[[classhk18]]
+	[[classhk19]]
+	[[classhk20]]
+	[[classhk21]]
+	[[classhk22]]
+	[[classhk23]]
+	[[classhk24]]
+	[[classhk25]]
+	[[classhk26]]
+	[[classhk27]]
+	[[classhk28]]
+	[[classhk29]]
+	[[classhk30]]
+	[[classhk31]]
+	[[classhk32]]
+	[[classhk33]]
+	[[classhk34]]
+	[[classhk35]]
+	[[classhk36]]
+	[[classhk37]]
+	[[classhk38]]
+	[[classhk39]]
+	[[classhk40]]
 }
 
+class subject2{
+	method(){
+		use subject.inner1.inner2.method6
+		use abc
+	}
+}
