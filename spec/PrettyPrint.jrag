@@ -3,7 +3,7 @@
 aspect PrettyPrint {
   public void CompilationUnit.pp(java.io.Writer writer) throws java.io.IOException{
   	writer.write("CompilationUnit\n");
-    for (Declaration d:getClassDeclarationList()) {
+    for (Declaration d:getBodyList()) {
       d.pp(writer, 1);
     }
     writer.close();
@@ -15,7 +15,7 @@ aspect PrettyPrint {
   	for(int i = 0; i < indent; i++)
   		writer.write("- ");
     writer.write("ClassDeclaration: " + getName() + "\n");
-    for (Declaration d:getClassBodyList()) {
+    for (Declaration d:getBodyList()) {
       d.pp(writer, indent + 1);
     }
   }
@@ -33,11 +33,18 @@ aspect PrettyPrint {
     for(int i = 0; i < indent+1; i++)
   		writer.write("- ");
   	writer.write("Method Body:\n");
-    for (Statement d:getMethodBodyList()) {
+    for (Statement d:getBodyList()) {
       d.pp(writer, indent + 1);
     }
   }
   
+  public void VariableAssignment.pp(java.io.Writer writer, int indent) throws java.io.IOException{
+	  for(int i = 0; i < indent; i++)
+	  		writer.write("- ");
+	    writer.write("VariableAssignment: \n");
+	    getLHand().pp(writer, indent + 1);
+	    getRHand().pp(writer, indent + 1);
+  }
   public void FieldDeclaration.pp(java.io.Writer writer, int indent) throws java.io.IOException{
   	for(int i = 0; i < indent; i++)
   		writer.write("- ");

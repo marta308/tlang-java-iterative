@@ -4,108 +4,141 @@ aspect NameAnalysis {
 	
 	  
 	  inh String Declaration.qname();
-	  eq CompilationUnit.getClassDeclaration(int i).qname() = getClassDeclaration(i).getName();
-	  eq ClassDeclaration.getClassBody(int i).qname(){
-		  return qname() + "." + getClassBody(i).getName();
+	  eq CompilationUnit.getBody(int i).qname() = getBody(i).getName();
+	  eq ClassDeclaration.getBody(int i).qname(){
+		  return qname() + "." + getBody(i).getName();
 	  }
 	  eq MethodDeclaration.getParameters(int i).qname(){
 		  return qname() + "." + getParameters(i).getName();
 	  }
-	  eq MethodDeclaration.getMethodBody(int i).qname(){ 
-		  return qname() + "." + getMethodBody(i).getName();
+	  eq MethodDeclaration.getBody(int i).qname(){ 
+		  return qname() + "." + getBody(i).getName();
 	  }
 	
-	  
-	syn Declaration Root.lookup(String declName){
-		Declaration match = null;
-  		for(CompilationUnit cu : getCompilationUnitsList()){
-  			match = cu.lookup(declName);
-  			if(match != null)
-  				return match;
-  		}
-  		return null;
-  	}
+	  private static Declaration CompilationUnit.subtreeLookup(ASTNode decl, String label){
+		  List<Declaration> body = null;
+		  if(decl instanceof CompilationUnit)
+			  body = ((CompilationUnit)decl).getBodyList();
+		  else if(decl instanceof ClassDeclaration)
+			  body = ((ClassDeclaration)decl).getBodyList(); 
+		  Declaration match = null; 
+		  for(Declaration d : body){
+			  match = d.lookup(label);
+			  if(match != null)
+				  return match;
+		  }
+		  return null;
+	  }
+			
+	  public static Declaration CompilationUnit.doLookup(ASTNode decl, String label){
+		  String[] parts = new String[2];
+		  int dotindex = label.indexOf('.');
+		  if(dotindex == -1){
+				parts[0] = label;
+				parts[1] = "";
+		  }
+		  else{
+				parts[0] = label.substring(0, dotindex);
+				parts[1] = label.substring(dotindex+1);
+		  }
+		  
+		  Declaration localMatch = null;
+		  if(decl instanceof CompilationUnit){
+			  localMatch = ((CompilationUnit)decl).localLookup(parts[0]);		 		  
+			  if(parts[1] == "")
+				  localMatch;
+			  if(localMatch != null){
+				if(parts[0].equals("-1")){
+					Declaration match = ((CompilationUnit)decl).lookup(parts[1]);
+					if(match != null)
+						return match;
+					return CompilationUnit.subtreeLookup(decl, label);
+				}
+				if(parts[0].equals("0")){
+					return ((CompilationUnit)decl).lookup(parts[1]);
+				}
+				if(parts[0].matches("[1-9][0-9]*")){
+					Declaration match = ((CompilationUnit)decl).lookup(parts[1]);
+					if(match != null)
+						return match;
+					int num = Integer.parseInt(parts[0]) - 1;
+					return CompilationUnit.subtreeLookup(decl, "" + num + "." + parts[1]);
+				}
+				return localMatch.lookup(parts[1]);
+			  }
+			  return null;
+		  }
+		  else if(decl instanceof ClassDeclaration){
+			  localMatch = ((ClassDeclaration)decl).localLookup(parts[0]);		 		  
+			  if(parts[1] == "")
+				  localMatch;
+			  if(localMatch != null){
+				if(parts[0].equals("-1")){
+					Declaration match = ((ClassDeclaration)decl).lookup(parts[1]);
+					if(match != null)
+						return match;
+					return CompilationUnit.subtreeLookup(decl, label);
+				}
+				if(parts[0].equals("0")){
+					return ((ClassDeclaration)decl).lookup(parts[1]);
+				}
+				if(parts[0].matches("[1-9][0-9]*")){
+					Declaration match = ((ClassDeclaration)decl).lookup(parts[1]);
+					if(match != null)
+						return match;
+					int num = Integer.parseInt(parts[0]) - 1;
+					return CompilationUnit.subtreeLookup(decl, "" + num + "." + parts[1]);
+				}
+				return localMatch.lookup(parts[1]);
+		  }
+		  return null;
+		}
+	  }
 	 
 	syn Declaration CompilationUnit.lookup(String label){
-		Declaration match = null;
-		for (Declaration d : getClassDeclarationList()){
-			match = d.lookup(label);
-			if(match != null)
-  				return match;
-		}
-		return null;
+		return doLookup(this, label);
+	}
+	
+	syn Declaration ClassDeclaration.lookup(String label){
+		return doLookup(this, label);
 	}
 	
 	syn Declaration Declaration.lookup(String label){
-		String[] parts = new String[2];
-		int dotindex = label.indexOf('.');
-		if(dotindex == -1){
-			parts[0] = label;
-			parts[1] = "";
-		}
-		else{
-			parts[0] = label.substring(0, dotindex);
-			parts[1] = label.substring(dotindex+1);
-		}
-		
-		if(parts[1] == "")
-			return localLookup(parts[0]);
-		if(localLookup(parts[0]) != null){
-			if(parts[0].equals("-1")){
-				Declaration match = this.lookup(parts[1]);
-				if(match != null)
-					return match;
-				return subtreeLookup(this, label);
-			}
-			if(parts[0].equals("0")){
-				return this.lookup(parts[1]);
-			}
-			if(parts[0].matches("[1-9][0-9]*")){
-				Declaration match = this.lookup(parts[1]);
-				if(match != null)
-					return match;
-				int num = Integer.parseInt(parts[0]) - 1;
-				return subtreeLookup(this, "" + num + "." + parts[1]);
-			}
-			return subtreeLookup(this, parts[1]);
-		}
 		return null;
 	}
 	
-	public static Declaration Declaration.subtreeLookup(Declaration decl, String label){
-		if(decl instanceof ClassDeclaration){
-			Declaration match = null; 
-			for(Declaration d : ((ClassDeclaration)decl).getClassBodyList()){
-				match = d.lookup(label);
-				if(match != null)
-					return match;
-			}
-			return null;
-		}
-//		if(decl instanceof MethodDeclaration){
-//			Declaration match = null;
-//			for(Declaration d : ((MethodDeclaration)decl).getParametersList()){
-//				match = d.lookup(label);
-//				if(match != null)
-//					return match;
-//			}
-//			for(Statement d : ((MethodDeclaration)decl).getMethodBodyList()){
-//				if(!(d instanceof Reference)){
-//					match = ((Declaration)d).lookup(label);
-//					if(match != null)
-//						return match;
-//				}
-//			}
-//			return null;
-//		}
-		return null;
-	}
+	syn Declaration CompilationUnit.localLookup(String label){
+		   for (Declaration d : getBodyList()){
+			   if(label.matches("-?[0-9]+") || label.equals("*") || label.equals(d.getName()))
+				   return d;
+		   }
+		   return null;
+	   }
+	   
+	   syn Declaration ClassDeclaration.localLookup(String label){
+		   for(Declaration d : getBodyList()){
+			   if(label.matches("-?[0-9]+") || label.equals("*") || label.equals(d.getName()))
+				   return d;
+		   }
+		   return null;
+	   }
+	   
+	   syn Declaration MethodDeclaration.localLookup(String label, Integer.. boundArg){
+		   for(Declaration d : getParametersList()){
+			   if(label.matches("-?[0-9]+") || label.equals("*") || label.equals(d.getName()))
+				   return d;
+		   }
+		   int bound = (boundArg.length == 0)? getBody().getNumChildrenNoTransform() : boundArg[0];
+		   for(int i = 0; i < bound; i++){
+			   Statement d = getBody(i);
+			   if(d instanceof Declaration)
+				   if(label.matches("-?[0-9]+") || label.equals("*") || label.equals(d.getName()))
+					   return (Declaration)d;
+		   }
+		   return null;
+	   }
+
 	
-	syn Declaration Declaration.localLookup(String label){
-		if(label.matches("-?[0-9]+") || label.equals("*") || label.equals(this.getName()))
-			return this;
-		return null;
-	}
 	
    //reference lookup
 	syn boolean Reference.lookupRef(String refName){
@@ -133,7 +166,7 @@ aspect NameAnalysis {
 		return parent.lookupRef(refName);
 	}
 	
-	inh boolean ClassDeclaration.lookupRef(String refName);
+	inh Declaration ClassDeclaration.lookupRef(String refName);
 	eq ClassDeclaration.getClassBody(int i).lookupRef(String refName){
 		//ClassDeclaration parent = (ClassDeclaration)getParent().getParent();
 		if(this.lookup(refName) != null)
@@ -150,43 +183,8 @@ aspect NameAnalysis {
 		return (((Root)getParent().getParent()).lookup(refName) != null)? true : false;
 	}
 	
-   //wildcards-not-supported-local lookup
-   syn Declaration ASTNode.lookupNOWC(String label){
-	   if(this instanceof CompilationUnit)
-		   return ((CompilationUnit)this).lookupNOWC(label);
-	   else if(this instanceof ClassDeclaration)
-		   return ((ClassDeclaration)this).lookupNOWC(label);
-	   else if(this instanceof MethodDeclaration)
-		   return ((MethodDeclaration)this).lookupNOWC(label);
-	   else return null;
-   }
+
    
-   syn Declaration CompilationUnit.lookupNOWC(String label){
-	   for (Declaration d : getClassDeclarationList()){
-		   if(label.equals(d.getName()))
-			   return d;
-	   }
-	   return null;
-   }
-   
-   syn Declaration ClassDeclaration.lookupNOWC(String label){
-	   for(Statement d : getClassBodyList()){
-		   if(label.equals(d.getName()))
-			   return (Declaration)d;
-	   }
-	   return null;
-   }
-   
-   syn Declaration MethodDeclaration.lookupNOWC(String label){
-	   for(Declaration d : getParametersList()){
-		   if(label.equals(d.getName()))
-			   return d;
-	   }
-	   for(Statement d : getMethodBodyList()){
-		   if(label.equals(d.getName()))
-			   return (Declaration)d;
-	   }
-	   return null;
-   }	
+   	
   
 }

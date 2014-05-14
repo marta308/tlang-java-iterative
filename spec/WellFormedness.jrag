@@ -1,33 +1,24 @@
 
 aspect WellFormedness {
-	
-
-	syn boolean Root.isCorrect(){
-		for(CompilationUnit cu : getCompilationUnitsList()){
-			if(!cu.isCorrect())
-				return false;
-		}
-		return true;
-	}
-	
+		
 	syn boolean CompilationUnit.isCorrect(){
-		for (Declaration d : getClassDeclarationList()){
+		for (Declaration d : getBodyList()){
 			if(!d.isCorrect())
 				return false;
 		}
 		return true;
 	}
 	
-	syn boolean Statement.isCorrect();
+	syn boolean Statement.isCorrect(){
+		return this.isCorrectLocal();
+	}
 	
 	eq ClassDeclaration.isCorrect(){
 		if (!this.isCorrectLocal())
 			return false;
-		for(Statement d : getClassBodyList()){
-			if(!(d instanceof Reference)){
-				if(!((Declaration)d).isCorrect())
-					return false;
-			}
+		for(Declaration d : getBodyList()){
+			if(!d.isCorrect())
+				return false;
 		}
 		return true;
 	}
@@ -46,32 +37,19 @@ aspect WellFormedness {
 		return true;
 	}
 	
-	eq FieldDeclaration.isCorrect(){
-		return this.isCorrectLocal();
-	}	
-	eq DeclarationHook.isCorrect(){
-		return this.isCorrectLocal();
-	}
-	eq Reference.isCorrect(){
-		return this.isCorrectLocal();
+	eq VariableAssignment.isCorrect(){
+		return (getLHand().isCorrectLocal() && getRHand().isCorrectLocal());
 	}
 	
 	syn boolean Declaration.isCorrectLocal(){
-		return (this == getParent().getParent().lookupNOWC(getName()));
+		return (this == getParent().getParent().localLookup(getName()));
 	}
 	syn boolean Reference.isCorrectLocal(){
-		return lookupRef(getName());
+		Declaration decl = lookupRef(getName());
+		return (decl != null && decl instanceof FieldDeclaration);
 	}
-	/*
-	syn boolean Declaration.isCorrectLocal(){
-		ASTNode parent = getParent().getParent();
-		String parentName = "";
-		if(parent instanceof ClassDeclaration || parent instanceof MethodDeclaration)
-			parentName = ((Declaration)parent).getName() + ".";
-		return (this == parent.lookup(parentName + getName()).get(0));
-	} */
 	
-	public boolean Root.checkWellformedness() throws CompositionException{
+	public boolean CompilationUnit.checkWellformedness() throws CompositionException{
 		if(!isCorrect())
 			throw new CompositionException("System wellformedness violated.");
 		else return true;

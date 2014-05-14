@@ -11,21 +11,21 @@ import syntax.TLangScanner;
 
 public class Compiler {
 
-	public static List<CompilationUnit> compile(String indir) {
+	public static List<ClassDeclaration> compile(String indir) {
 
 		File inputdir = new File(indir);
 		Collection<File> inputFiles = new LinkedList<File>();
 		inputFiles.add(inputdir);
 		inputFiles = readFiles(inputFiles, new String[] { ".tlang" });
 
-		List<CompilationUnit> compUnits = new List<CompilationUnit>();
-		CompilationUnit cu = null;
+		List<ClassDeclaration> classes = new List<ClassDeclaration>();
+		ClassDeclaration cl = null;
 		for (File currentFile : inputFiles) {
-			cu = parse(currentFile);
-			compUnits.add(cu);
+			cl = parse(currentFile);
+			classes.add(cl);
 		}
 		
-		return compUnits;
+		return classes;
 
 	}
 
@@ -37,12 +37,12 @@ public class Compiler {
 		return args[0];
 	}
 
-	public static CompilationUnit parse(File file) {
+	public static ClassDeclaration parse(File file) {
 		try {
 			FileReader reader = new FileReader(file);
 			TLangScanner scanner = new TLangScanner(reader);
 			TLangParser parser = new TLangParser();
-			CompilationUnit result = (CompilationUnit) parser.parse(scanner);
+			ClassDeclaration result = (ClassDeclaration) parser.parse(scanner);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,16 +50,16 @@ public class Compiler {
 		}
 	}
 
-	public static void prettyPrint(List<CompilationUnit> compUnits,
+	public static void prettyPrint(List<ClassDeclaration> classes,
 			String outfile) {
-		for (CompilationUnit cu : compUnits) {
-			File out = new File(cu.getClassDeclaration(0).qname() + ".txt");
+		for (ClassDeclaration cl : classes) {
+			File out = new File(cl.qname() + ".txt");
 			Writer writer = null;
 			try {
 				writer = new BufferedWriter(new OutputStreamWriter(
 						new FileOutputStream(outfile + '/' + out.getName()),
 						"utf-8"));
-				cu.pp(writer);
+				cl.pp(writer);
 			} catch (IOException e) {
 				System.out.println("whatever");
 				e.printStackTrace();

@@ -1,11 +1,17 @@
 
 
+CompilationUnit ::= 
+	Body:ClassDeclaration*
+	CompositionProgram:CompositionProgram
+;
 
-CompilationUnit ::= ClassDeclaration*;
-abstract Statement ::= <Name:String>;
-abstract Declaration : Statement;
-ClassDeclaration : Declaration ::= ClassBody:Declaration*;
-MethodDeclaration : Declaration ::= Parameters:FieldDeclaration* MethodBody:Statement*;
+abstract Statement;
+
+abstract Declaration : Statement ::= <Name:String>;
+ClassDeclaration : Declaration ::= Body:Declaration*;
+MethodDeclaration : Declaration ::= Parameters:FieldDeclaration* Body:Statement*;
 FieldDeclaration : Declaration;
 DeclarationHook : Declaration;
-Reference : Statement;
+
+VariableAssignment : Statement ::= LHand:Reference RHand:Reference;
+Reference : Statement ::= <Name:String>;

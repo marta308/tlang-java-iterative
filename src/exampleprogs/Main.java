@@ -8,38 +8,39 @@ import AST.*;
 
 public class Main {
 
-	private static List<CompilationUnit> compUnits = null;
+	private static List<ClassDeclaration> classes = null;
+	private static CompilationUnit compUnit = null;
 
 	public static void main(String[] args) {
 		String recipe = getFilename(args);
 		String indir = args[1];
 		String outdir = args[2];
+		
+		classes = Compiler.compile(indir);
 
-		mainOneLoop(recipe, indir);
+		CompositionProgram cp = CompositionLangCompiler
+				.compile(recipe);
+
+		compUnit = new CompilationUnit(classes, cp);
+
+		mainOneLoop();
 
 		final long start = new java.util.Date().getTime();
 
 		for (int i = 0; i < 10; i++) {
-			mainOneLoop(recipe, indir);
+			mainOneLoop();
 		}
 
 		final long end = new java.util.Date().getTime();
 		System.out.println("\nExecution Time: " + (end - start) / 10 + "ms");
 		
-		Compiler.prettyPrint(compUnits, outdir);
+		Compiler.prettyPrint(compUnit, outdir);
 	}
 
-	private static void mainOneLoop(String recipe, String indir) {
-		
-		compUnits = Compiler.compile(indir);
-
-		CompositionProgram cp = CompositionLangCompiler
-				.compile(recipe);
-
-		Root root = new Root(compUnits, cp);
-				
+	private static void mainOneLoop() {
+			
 		try {
-			PerformCompositions.performCompositions(root);
+			PerformCompositions.performCompositions(compUnit);
 		} catch (CompositionException e) {
 			System.out.println(e.getMessage());
 		}

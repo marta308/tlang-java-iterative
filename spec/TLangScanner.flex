@@ -36,9 +36,14 @@ Identifier = [:jletter:]([:jletterdigit:] | ".")*
 
 // token definitions
 "class"       { return sym(Terminals.CLASS); }
-"use"       { return sym(Terminals.USE); }
+"public"       { return sym(Terminals.PUBLIC); }
+"static"       { return sym(Terminals.STATIC); }
+"int"       { return sym(Terminals.INT); }
+"void"       { return sym(Terminals.VOID); }
 {Identifier}  { return sym(Terminals.IDENTIFIER); }
 ";"           { return sym(Terminals.SEMI); }
+","           { return sym(Terminals.COMA); }
+"="           { return sym(Terminals.EQUAL); }
 "("           { return sym(Terminals.LPAREN); }
 ")"           { return sym(Terminals.RPAREN); }
 "{"           { return sym(Terminals.LBRACE); }
