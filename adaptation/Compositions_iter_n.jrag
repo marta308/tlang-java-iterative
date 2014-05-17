@@ -2,10 +2,10 @@ import java.util.regex.*;
 
 aspect Compositions{
 	
-	inh Root CompositionProgram.getRoot();
-	eq Root.getCompositionProgram().getRoot() = this;
-	inh Root Composer.getRoot();
-	eq CompositionProgram.getComposers(int i).getRoot() = getRoot();
+	inh CompilationUnit CompositionProgram.getCompilationUnit();
+	eq CompilationUnit.getCompositionProgram().getCompilationUnit() = this;
+	inh CompilationUnit Composer.getCompilationUnit();
+	eq CompositionProgram.getComposers(int i).getCompilationUnit() = getCompilationUnit();
 	
 	syn String Composer.sourceName(){
 		String name = getSourceName();
@@ -40,11 +40,11 @@ aspect Compositions{
 	}
 	
 	syn Declaration Composer.getSource(){
-		return getRoot().lookup(sourceName());
+		return getCompilationUnit().lookup(sourceName());
 	}
 	
 	syn Declaration Composer.getTarget(){
-		return getRoot().lookup(targetName());
+		return getCompilationUnit().lookup(targetName());
 	}
 	
 	syn boolean Composer.isExhausted(){
@@ -79,7 +79,7 @@ aspect Compositions{
 		srcParent.removeChild(srcParent.getIndexOfChild(this));
 	}
 	
-	public void Root.doCompositions() throws CompositionException{
+	public void CompilationUnit.doCompositions() throws CompositionException{
 		Composer nextComposition = getCompositionProgram().nextComposition();
 		while(nextComposition != null){
 			if(!isCorrect())

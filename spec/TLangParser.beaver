@@ -112,9 +112,9 @@ field_or_assignment_list =
   | {: return new Symbol(new List()); :}
   ;
 field_or_assignment =
-    field_declaration.field_declaration {: ASTNode _node_ = field_declaration;
-        _node_.setStart(Symbol.getLine(_symbol_field_declaration.getStart()), (short) Symbol.getColumn(_symbol_field_declaration.getStart()));
-        _node_.setEnd(Symbol.getLine(_symbol_field_declaration.getEnd()), (short) Symbol.getColumn(_symbol_field_declaration.getEnd()));
+    field_or_param.field_or_param SEMI.SEMI {: ASTNode _node_ = field_or_param;
+        _node_.setStart(Symbol.getLine(_symbol_field_or_param.getStart()), (short) Symbol.getColumn(_symbol_field_or_param.getStart()));
+        _node_.setEnd(Symbol.getLine(SEMI.getEnd()), (short) Symbol.getColumn(SEMI.getEnd()));
         return new Symbol(_node_); :}
 
   | assignment.assignment {: ASTNode _node_ = assignment;

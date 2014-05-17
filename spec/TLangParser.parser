@@ -49,7 +49,7 @@ List field_or_assignment_list =
 	|					{: return new List(); :}
 	;
 field_or_assignment =
-	  field_declaration  {: return field_declaration; :}
+	  field_or_param SEMI  {: return field_or_param; :}
 	| assignment		 {: return assignment; :}
 	;
 

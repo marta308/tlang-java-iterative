@@ -30,21 +30,22 @@ aspect WellFormedness {
 			if(!d.isCorrect())
 				return false;
 		}
-		for(Statement d : getMethodBodyList()){
+		for(Statement d : getBodyList()){
 			if(!d.isCorrect())
 				return false;
 		}
 		return true;
 	}
+
 	
-	eq VariableAssignment.isCorrect(){
-		return (getLHand().isCorrectLocal() && getRHand().isCorrectLocal());
-	}
-	
-	syn boolean Declaration.isCorrectLocal(){
+	syn boolean Statement.isCorrectLocal();
+	eq Declaration.isCorrectLocal(){
 		return (this == getParent().getParent().localLookup(getName()));
 	}
-	syn boolean Reference.isCorrectLocal(){
+	eq VariableAssignment.isCorrectLocal(){
+		return (getLHand().isCorrectLocal() && getRHand().isCorrectLocal());
+	}
+	eq Reference.isCorrectLocal(){
 		Declaration decl = lookupRef(getName());
 		return (decl != null && decl instanceof FieldDeclaration);
 	}

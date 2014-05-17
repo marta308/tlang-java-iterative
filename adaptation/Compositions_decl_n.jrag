@@ -1,18 +1,16 @@
 
 aspect Compositions{
 		
-	inh Root CompositionProgram.getRoot();
-	eq Root.getCompositionProgram().getRoot() = this;
-	inh Root Composer.getRoot();
-	eq CompositionProgram.getComposers(int i).getRoot() = getRoot();
+	inh CompilationUnit CompositionProgram.getCompilationUnit();
+	eq CompilationUnit.getCompositionProgram().getCompilationUnit() = this;
+	inh CompilationUnit Composer.getCompilationUnit();
+	eq CompositionProgram.getComposers(int i).getCompilationUnit() = getCompilationUnit();
 	
-	inh CompositionProgram CompilationUnit.getCompositionProgram();
-	eq Root.getCompilationUnits(int i).getCompositionProgram() = getCompositionProgram();
-	inh CompositionProgram ClassDeclaration.getCompositionProgram();
-	eq CompilationUnit.getClassDeclaration(int i).getCompositionProgram() = getCompositionProgram();
+
 	inh CompositionProgram Declaration.getCompositionProgram();
-	eq ClassDeclaration.getClassBody(int i).getCompositionProgram() = getCompositionProgram();
-	eq MethodDeclaration.getMethodBody(int i).getCompositionProgram() = getCompositionProgram();
+	eq CompilationUnit.getBody(int i).getCompositionProgram() = getCompositionProgram();
+	eq ClassDeclaration.getBody(int i).getCompositionProgram() = getCompositionProgram();
+	eq MethodDeclaration.getBody(int i).getCompositionProgram() = getCompositionProgram();
 	eq MethodDeclaration.getParameters(int i).getCompositionProgram() = getCompositionProgram();
 	
 	syn CompositionProgram List.getCompositionProgram(){
@@ -58,13 +56,13 @@ aspect Compositions{
 	syn Declaration Composer.getSource(){
 		if(getSourceName().equals(""))
 			return null;
-		return getRoot().lookup(sourceName());
+		return getCompilationUnit().lookup(sourceName());
 	}
 	
 	syn Declaration Composer.getTarget(){
 		if(getTargetName().equals(""))
 			return null;
-		return getRoot().lookup(targetName());
+		return getCompilationUnit().lookup(targetName());
 	}
 	
 	syn boolean Composer.isExhausted(){
@@ -141,7 +139,7 @@ aspect Compositions{
 	rewrite DeclarationHook {
 		when(//getCompositionProgram().nextComposition() != null &&
 				getCompositionProgram().nextComposition().getTarget() == this
-				&& getCompositionProgram().getRoot().checkWellformedness()
+				&& getCompositionProgram().getCompilationUnit().checkWellformedness()
 				)
 		to Declaration{
 			Composer composer = LookUpComposer(this);
@@ -154,7 +152,7 @@ aspect Compositions{
 	
 	rewrite List{
 		when(isParentOfExComposerSource()
-				&& getCompositionProgram().getRoot().checkWellformedness()
+				&& getCompositionProgram().getCompilationUnit().checkWellformedness()
 				)
 		to List{
 			int childIndex = indexOfChildToRemove();
@@ -165,8 +163,8 @@ aspect Compositions{
 		}
 	}
 	
-	public void Root.traverse(){
-		for(CompilationUnit cu : getCompilationUnitsList()){
+	public void CompilationUnit.traverse(){
+		for(ClassDeclaration cu : getBodyList()){
 			cu.traverse();
 		}
 	}

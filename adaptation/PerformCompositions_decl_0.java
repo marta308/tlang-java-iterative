@@ -2,7 +2,6 @@ package exampleprogs;
 
 import AST.CompilationUnit;
 import AST.CompositionException;
-import AST.Root;
 
 public class PerformCompositions {
 

@@ -1,62 +1,59 @@
-class subject{
+public class Subject{
 	
-	class inner1{
-		field1;
-		field2;
-		field3;
-		field4;
-		field5;
-		field6;
+	public static class Inner1{
+		public static int field1;
+		public static int field2;
+		public static int field3;
+		public static int field4;
+		public static int field5;
+		public static int field6;
 	
-		method1(param1;){
-			use field1
-			local1;
-			use param1
-			use inner2.method6
+		public static void method1(int param1, int param2){
+			param1 = field1;
+			int local1;
+			local1 = Inner2.field2;
 		}
-		method2(param2;){
-			local2;
+		public static void method2(int param2){
+			int local2;
 		}
-		method3(param3;){
-			local3;
+		public static void method3(int param3){
+			int local3;
 		}
-		method4(param4;){
-			local4;
+		public static void method4(int param4){
+			int local4;
 		}
-		method5(param5;){
-			local5;
+		public static void method5(int param5){
+			int local5;
 		}
-		method6(param6;){
-			local6;
+		public static void method6(){
 		}
 
-		class inner2{
-			field1;
-			field2;
-			field3;
-			field4;
-			field5;
-			field6;
+		public static class Inner2{
+			public static int field1;
+			public static int field2;
+			public static int field3;
+			public static int field4;
+			public static int field5;
 	
-			method1(param1;){
-				use inner1.field3
-				local1;
-				use method2
+			public static void method1(int param1){
+				Inner1.field6 = field3;
+				int local1;
+				local1 = field6;
 			}
-			method2(param2;){
-				local2;
+			public static void method2(int param2){
+				int local2;
 			}
-			method3(param3;){
-				local3;
+			public static void method3(int param3){
+				int local3;
 			}
-			method4(param4;){
-				local4;
+			public static void method4(int param4){
+				int local4;
 			}
-			method5(param5;){
-				local5;
+			public static void method5(int param5){
+				int local5;
 			}
-			method6(param6;){
-				local6;
+			public static void method6(int param6){
+				int local6;
 			}
 		}
 	}
@@ -101,11 +98,4 @@ class subject{
 	[[classhk38]]
 	[[classhk39]]
 	[[classhk40]]
-}
-
-class subject2{
-	method(){
-		use subject.inner1.inner2.method6
-		use abc
-	}
 }

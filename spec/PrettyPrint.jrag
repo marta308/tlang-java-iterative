@@ -1,12 +1,16 @@
-
+import java.io.*;
 
 aspect PrettyPrint {
-  public void CompilationUnit.pp(java.io.Writer writer) throws java.io.IOException{
-  	writer.write("CompilationUnit\n");
+  public void CompilationUnit.pp(String outfolder) throws java.io.IOException{
     for (Declaration d:getBodyList()) {
-      d.pp(writer, 1);
+    	File out = new File(d.qname() + ".txt");
+		Writer writer = null;
+		writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(outfolder + '/' + out.getName()), "utf-8"));
+		writer.write("\n");
+		d.pp(writer, 0);
+		writer.close();
     }
-    writer.close();
   }
   
   public void Statement.pp(java.io.Writer writer, int indent) throws java.io.IOException{}
@@ -41,7 +45,7 @@ aspect PrettyPrint {
   public void VariableAssignment.pp(java.io.Writer writer, int indent) throws java.io.IOException{
 	  for(int i = 0; i < indent; i++)
 	  		writer.write("- ");
-	    writer.write("VariableAssignment: \n");
+	    writer.write("VariableAssignment\n");
 	    getLHand().pp(writer, indent + 1);
 	    getRHand().pp(writer, indent + 1);
   }

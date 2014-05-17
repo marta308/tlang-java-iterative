@@ -50,20 +50,13 @@ public class Compiler {
 		}
 	}
 
-	public static void prettyPrint(List<ClassDeclaration> classes,
-			String outfile) {
-		for (ClassDeclaration cl : classes) {
-			File out = new File(cl.qname() + ".txt");
-			Writer writer = null;
-			try {
-				writer = new BufferedWriter(new OutputStreamWriter(
-						new FileOutputStream(outfile + '/' + out.getName()),
-						"utf-8"));
-				cl.pp(writer);
-			} catch (IOException e) {
-				System.out.println("whatever");
-				e.printStackTrace();
-			}
+	public static void prettyPrint(CompilationUnit cunit,
+			String outfolder) {
+		try {
+			cunit.pp(outfolder);
+		} catch (IOException e) {
+			System.out.println("whatever");
+			e.printStackTrace();
 		}
 	}
 

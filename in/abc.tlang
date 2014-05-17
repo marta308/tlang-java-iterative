@@ -1,592 +1,208 @@
-class abc{
-	method1(aa; bb;){
-		cc;
-		use method2
+public class Abc{
+	public static void method1(int aa, int bb){
+		int cc;
+		cc = Subject.Inner1.field3;
 	}
-	method2(aa; bb;){
-		cc;
+	public static void method2(int aa, int bb){
+		int cc;
+		cc = Subject.Inner1.field3;
 	}
-	method3(aa; bb;){
-		cc;
+	public static void method3(int aa, int bb){
+		int cc;
+		cc = Subject.Inner1.field3;
 	}
-	method4(aa; bb;){
-		cc;
+	public static void method4(int aa, int bb){
+		int cc;
+		cc = Subject.Inner1.field3;
 	}
-	class innermess{
-		method1(aa; bb;){
-			cc;
-			use abc.method2
+	public static class Innermess{
+		public static void method1(int aa, int bb){
+			int cc;
+			cc = Subject.Inner1.field3;
 		}
-		method2(aa; bb;){
-			cc;
+		public static void method2(int aa, int bb){
+			int cc;
+			cc = Subject.Inner1.field3;
 		}
-		method3(aa; bb;){
-			cc;
+		public static void method3(int aa, int bb){
+			int cc;
+			cc = Subject.Inner1.field3;
 		}
-		method4(aa; bb;){
-			cc;
+		public static void method4(int aa, int bb){
+			int cc;
+			cc = Subject.Inner1.field3;
 		}
-		class innermess1{
-			method1(aa; bb;){
-				cc;
-				use abc.method2
+		public static class Innermess1{
+			public static void method1(int aa, int bb){
+				int cc;
+				cc = Subject.Inner1.field3;
 			}
-			method2(aa; bb;){
-				cc;
+			public static void method2(int aa, int bb){
+				int cc;
+				cc = Subject.Inner1.field3;
 			}
-			method3(aa; bb;){
-				cc;
+			public static void method3(int aa, int bb){
+				int cc;
+				cc = Subject.Inner1.field3;
 			}
-			method4(aa; bb;){
-				cc;
+			public static void method4(int aa, int bb){
+				int cc;
+				cc = Subject.Inner1.field3;
 			}
-			class innermess2{
-				method1(aa; bb;){
-					cc;
-					use abc.method2
+			public static class Innermess2{
+				public static void method1(int aa, int bb){
+					int cc;
+					cc = Subject.Inner1.field3;
 				}
-				method2(aa; bb;){
-					cc;
+				public static void method2(int aa, int bb){
+					int cc;
+					cc = Subject.Inner1.field3;
 				}
-				method3(aa; bb;){
-					cc;
+				public static void method3(int aa, int bb){
+					int cc;
+					cc = Subject.Inner1.field3;
 				}
-				method4(aa; bb;){
-					cc;
+				public static void method4(int aa, int bb){
+					int cc;
+					cc = Subject.Inner1.field3;
 				}
-				class innermess3{
-					method1(aa; bb;){
-						cc;
-						use abc.method2
+				public static class Innermess3{
+					public static void method1(int aa, int bb){
+						int cc;
+						cc = Subject.Inner1.field3;
 					}
-					method2(aa; bb;){
-						cc;
+					public static void method2(int aa, int bb){
+						int cc;
+						cc = Subject.Inner1.field3;
 					}
-					method3(aa; bb;){
-						cc;
+					public static void method3(int aa, int bb){
+						int cc;
+						cc = Subject.Inner1.field3;
 					}
-					method4(aa; bb;){
-						cc;
+					public static void method4(int aa, int bb){
+						int cc;
+						cc = Subject.Inner1.field3;
 					}
-					class innermess4{
-						method1(aa; bb;){
-							cc;
-							use abc.method2
+					public static class Innermess4{
+						public static void method1(int aa, int bb){
+							int cc;
+							cc = Subject.Inner1.field3;
 						}
-						method2(aa; bb;){
-							cc;
+						public static void method2(int aa, int bb){
+							int cc;
+							cc = Subject.Inner1.field3;
 						}
-						method3(aa; bb;){
-							cc;
+						public static void method3(int aa, int bb){
+							int cc;
+							cc = Subject.Inner1.field3;
 						}
-						method4(aa; bb;){
-							cc;
+						public static void method4(int aa, int bb){
+							int cc;
+							cc = Subject.Inner1.field3;
 						}
-						class innermess5{
-							method1(aa; bb;){
-								cc;
-								use abc.method2
+						public static class Innermess5{
+							public static void method1(int aa, int bb){
+								int cc;
+								cc = Subject.Inner1.field3;
 							}
-							method2(aa; bb;){
-								cc;
+							public static void method2(int aa, int bb){
+								int cc;
+								cc = Subject.Inner1.field3;
 							}
-							method3(aa; bb;){
-								cc;
+							public static void method3(int aa, int bb){
+								int cc;
+								cc = Subject.Inner1.field3;
 							}
-							method4(aa; bb;){
-								cc;
+							public static void method4(int aa, int bb){
+								int cc;
+								cc = Subject.Inner1.field3;
 							}
-							class innermess6{
-								method1(aa; bb;){
-									cc;
-									use abc.method2
+							public static class Innermess6{
+								public static void method1(int aa, int bb){
+									int cc;
+									cc = Subject.Inner1.field3;
 								}
-								method2(aa; bb;){
-									cc;
+								public static void method2(int aa, int bb){
+									int cc;
+									cc = Subject.Inner1.field3;
 								}
-								method3(aa; bb;){
-									cc;
+								public static void method3(int aa, int bb){
+									int cc;
+									cc = Subject.Inner1.field3;
 								}
-								method4(aa; bb;){
-									cc;
+								public static void method4(int aa, int bb){
+									int cc;
+									cc = Subject.Inner1.field3;
 								}
-								class innermess7{
-									method1(aa; bb;){
-										cc;
-										use abc.method2
+								public static class Innermess7{
+									public static void method1(int aa, int bb){
+										int cc;
+										cc = Subject.Inner1.field3;
 									}
-									method2(aa; bb;){
-										cc;
+									public static void method2(int aa, int bb){
+										int cc;
+										cc = Subject.Inner1.field3;
 									}
-									method3(aa; bb;){
-										cc;
+									public static void method3(int aa, int bb){
+										int cc;
+										cc = Subject.Inner1.field3;
 									}
-									method4(aa; bb;){
-										cc;
+									public static void method4(int aa, int bb){
+										int cc;
+										cc = Subject.Inner1.field3;
 									}
-									class innermess8{
-										method1(aa; bb;){
-											cc;
+									public static class Innermess8{
+										public static void method1(int aa, int bb){
+											int cc;
+											cc = Subject.Inner1.field3;
 										}
-										method2(aa; bb;){
-											cc;
-											use abc.method2
+										public static void method2(int aa, int bb){
+											int cc;
+											cc = Subject.Inner1.field3;
 										}
-										method3(aa; bb;){
-											cc;
+										public static void method3(int aa, int bb){
+											int cc;
+											cc = Subject.Inner1.field3;
 										}
-										method4(aa; bb;){
-											cc;
+										public static void method4(int aa, int bb){
+											int cc;
+											cc = Subject.Inner1.field3;
 										}
-										class innermess9{
-											method1(aa; bb;){
-												cc;
-												use abc.method2
+										public static class Innermess9{
+											public static void method1(int aa, int bb){
+												int cc;
+												cc = Subject.Inner1.field3;
 											}
-											method2(aa; bb;){
-												cc;
+											public static void method2(int aa, int bb){
+												int cc;
+												cc = Subject.Inner1.field3;
 											}
-											method3(aa; bb;){
-												cc;
+											public static void method3(int aa, int bb){
+												int cc;
+												cc = Subject.Inner1.field3;
 											}
-											method4(aa; bb;){
-												cc;
+											public static void method4(int aa, int bb){
+												int cc;
+												cc = Subject.Inner1.field3;
 											}
-											class innermess{
-												method1(aa; bb;){
-													cc;
-													use abc.method2
+											public static class Innermess{
+												public static void method1(int aa, int bb){
+													int cc;
+													cc = Subject.Inner1.field3;
 												}
-												method2(aa; bb;){
-													cc;
+												public static void method2(int aa, int bb){
+													int cc;
+													cc = Subject.Inner1.field3;
 												}
-												method3(aa; bb;){
-													cc;
+												public static void method3(int aa, int bb){
+													int cc;
+													cc = Subject.Inner1.field3;
 												}
-												method4(aa; bb;){
-													cc;
+												public static void method4(int aa, int bb){
+													int cc;
+													cc = Subject.Inner1.field3;
 												}
-												class innermess1{
-													method1(aa; bb;){
-														cc;
-														use abc.method2
-													}
-													method2(aa; bb;){
-														cc;
-													}
-													method3(aa; bb;){
-														cc;
-													}
-													method4(aa; bb;){
-														cc;
-													}
-													class innermess2{
-														method1(aa; bb;){
-															cc;
-															use abc.method2
-														}
-														method2(aa; bb;){
-															cc;
-														}
-														method3(aa; bb;){
-															cc;
-														}
-														method4(aa; bb;){
-															cc;
-														}
-														class innermess3{
-															method1(aa; bb;){
-																cc;
-																use abc.method2
-															}
-															method2(aa; bb;){
-																cc;
-															}
-															method3(aa; bb;){
-																cc;
-															}
-															method4(aa; bb;){
-																cc;
-															}
-															class innermess4{
-																method1(aa; bb;){
-																	cc;
-																	use abc.method2
-																}
-																method2(aa; bb;){
-																	cc;
-																}
-																method3(aa; bb;){
-																	cc;
-																}
-																method4(aa; bb;){
-																	cc;
-																}
-																class innermess5{
-																	method1(aa; bb;){
-																		cc;
-																		use abc.method2
-																	}
-																	method2(aa; bb;){
-																		cc;
-																	}
-																	method3(aa; bb;){
-																		cc;
-																	}
-																	method4(aa; bb;){
-																		cc;
-																	}
-																	class innermess6{
-																		method1(aa; bb;){
-																			cc;
-																			use abc.method2
-																		}
-																		method2(aa; bb;){
-																			cc;
-																		}
-																		method3(aa; bb;){
-																			cc;
-																		}
-																		method4(aa; bb;){
-																			cc;
-																		}
-																		class innermess7{
-																			method1(aa; bb;){
-																				cc;
-																				use abc.method2
-																			}
-																			method2(aa; bb;){
-																				cc;
-																			}
-																			method3(aa; bb;){
-																				cc;
-																			}
-																			method4(aa; bb;){
-																				cc;
-																			}
-																			class innermess8{
-																				method1(aa; bb;){
-																					cc;
-																					use abc.method2
-																				}
-																				method2(aa; bb;){
-																					cc;
-																				}
-																				method3(aa; bb;){
-																					cc;
-																				}
-																				method4(aa; bb;){
-																					cc;
-																				}
-																				class innermess9{
-																					method1(aa; bb;){
-																						cc;
-																						use abc.method2
-																					}
-																					method2(aa; bb;){
-																						cc;
-																					}
-																					method3(aa; bb;){
-																						cc;
-																					}
-																					method4(aa; bb;){
-																						cc;
-																					}
-																					class innermess1{
-																						method1(aa; bb;){
-																							cc;
-																							use abc.method2
-																						}
-																						method2(aa; bb;){
-																							cc;
-																						}
-																						method3(aa; bb;){
-																							cc;
-																						}
-																						method4(aa; bb;){
-																							cc;
-																						}
-																						class innermess2{
-																							method1(aa; bb;){
-																								cc;
-																								use abc.method2
-																							}
-																							method2(aa; bb;){
-																								cc;
-																							}
-																							method3(aa; bb;){
-																								cc;
-																							}
-																							method4(aa; bb;){
-																								cc;
-																							}
-																							class innermess3{
-																								method1(aa; bb;){
-																									cc;
-																									use abc.method2
-																								}
-																								method2(aa; bb;){
-																									cc;
-																								}
-																								method3(aa; bb;){
-																									cc;
-																								}
-																								method4(aa; bb;){
-																									cc;
-																								}
-																								class innermess4{
-																									method1(aa; bb;){
-																										cc;
-																										use abc.method2
-																									}
-																									method2(aa; bb;){
-																										cc;
-																									}
-																									method3(aa; bb;){
-																										cc;
-																									}
-																									method4(aa; bb;){
-																										cc;
-																									}
-																									class innermess5{
-																										method1(aa; bb;){
-																											cc;
-																											use abc.method2
-																										}
-																										method2(aa; bb;){
-																											cc;
-																										}
-																										method3(aa; bb;){
-																											cc;
-																										}
-																										method4(aa; bb;){
-																											cc;
-																										}
-																										class innermess6{
-																											method1(aa; bb;){
-																												cc;
-																												use abc.method2
-																											}
-																											method2(aa; bb;){
-																												cc;
-																											}
-																											method3(aa; bb;){
-																												cc;
-																											}
-																											method4(aa; bb;){
-																												cc;
-																											}
-																											class innermess7{
-																												method1(aa; bb;){
-																													cc;
-																													use abc.method2
-																												}
-																												method2(aa; bb;){
-																													cc;
-																												}
-																												method3(aa; bb;){
-																													cc;
-																												}
-																												method4(aa; bb;){
-																													cc;
-																												}
-																												class innermess8{
-																													method1(aa; bb;){
-																														cc;
-																														use abc.method2
-																													}
-																													method2(aa; bb;){
-																														cc;
-																													}
-																													method3(aa; bb;){
-																														cc;
-																													}
-																													method4(aa; bb;){
-																														cc;
-																													}
-																													class innermess9{
-																														method1(aa; bb;){
-																															cc;
-																															use abc.method2
-																														}
-																														method2(aa; bb;){
-																															cc;
-																														}
-																														method3(aa; bb;){
-																															cc;
-																														}
-																														method4(aa; bb;){
-																															cc;
-																														}
-																														class innermess{
-																															method1(aa; bb;){
-																																cc;
-																																use abc.method2
-																															}
-																															method2(aa; bb;){
-																																cc;
-																															}
-																															method3(aa; bb;){
-																																cc;
-																															}
-																															method4(aa; bb;){
-																																cc;
-																															}
-																															class innermess1{
-																																method1(aa; bb;){
-																																	cc;
-																																	use abc.method2
-																																}
-																																method2(aa; bb;){
-																																	cc;
-																																}
-																																method3(aa; bb;){
-																																	cc;
-																																}
-																																method4(aa; bb;){
-																																	cc;
-																																}
-																																class innermess2{
-																																	method1(aa; bb;){
-																																		cc;
-																																		use abc.method2
-																																	}
-																																	method2(aa; bb;){
-																																		cc;
-																																	}
-																																	method3(aa; bb;){
-																																		cc;
-																																	}
-																																	method4(aa; bb;){
-																																		cc;
-																																	}
-																																	class innermess3{
-																																		method1(aa; bb;){
-																																			cc;
-																																			use abc.method2
-																																		}
-																																		method2(aa; bb;){
-																																			cc;
-																																		}
-																																		method3(aa; bb;){
-																																			cc;
-																																		}
-																																		method4(aa; bb;){
-																																			cc;
-																																		}
-																																		class innermess4{
-																																			method1(aa; bb;){
-																																				cc;
-																																				use abc.method2
-																																			}
-																																			method2(aa; bb;){
-																																				cc;
-																																			}
-																																			method3(aa; bb;){
-																																				cc;
-																																			}
-																																			method4(aa; bb;){
-																																				cc;
-																																			}
-																																			class innermess5{
-																																				method1(aa; bb;){
-																																					cc;
-																																					use abc.method2
-																																				}
-																																				method2(aa; bb;){
-																																					cc;
-																																				}
-																																				method3(aa; bb;){
-																																					cc;
-																																				}
-																																				method4(aa; bb;){
-																																					cc;
-																																				}
-																																				class innermess6{
-																																					method1(aa; bb;){
-																																						cc;
-																																						use abc.method2
-																																					}
-																																					method2(aa; bb;){
-																																						cc;
-																																					}
-																																					method3(aa; bb;){
-																																						cc;
-																																					}
-																																					method4(aa; bb;){
-																																						cc;
-																																					}
-																																					class innermess7{
-																																						method1(aa; bb;){
-																																							cc;
-																																							use abc.method2
-																																						}
-																																						method2(aa; bb;){
-																																							cc;
-																																						}
-																																						method3(aa; bb;){
-																																							cc;
-																																						}
-																																						method4(aa; bb;){
-																																							cc;
-																																						}
-																																						class innermess8{
-																																							method1(aa; bb;){
-																																								cc;
-																																								use abc.method2
-																																							}
-																																							method2(aa; bb;){
-																																								cc;
-																																							}
-																																							method3(aa; bb;){
-																																								cc;
-																																							}
-																																							method4(aa; bb;){
-																																								cc;
-																																							}
-																																							class innermess9{
-																																								method1(aa; bb;){
-																																									cc;
-																																									use abc.method2
-																																								}
-																																								method2(aa; bb;){
-																																									cc;
-																																								}
-																																								method3(aa; bb;){
-																																									cc;
-																																								}
-																																								method4(aa; bb;){
-																																									cc;
-																																								}
-																																							}
-																																						}
-																																					}
-																																				}
-																																			}
-																																		}
-																																	}
-																																}
-																															}
-																														}
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
+											}	
 										}
 									}
 								}
@@ -598,131 +214,130 @@ class abc{
 		}
 	}
 
-
-	class abc1{
-		mm(){
-			use subject.inner1.inner2
+	public static class Abc1{
+		public static void methodAbc1(int aa){
+			Subject.Inner1.Inner2.field1 = aa;
 		}
 		[[classhk1]]
 	}
-	class abc2{
-		mm(){
-			use subject.inner1.inner2
+	public static class Abc2{
+		public static void methodAbc2(int aa){
+			Subject.Inner1.Inner2.field1 = aa;
 		}
 		[[classhk2]]
 	}
-	class abc3{
+	public static class Abc3{
 		[[classhk3]]
 	}
-	class abc4{
+	public static class Abc4{
 		[[classhk4]]
 	}
-	class abc5{
+	public static class Abc5{
 		[[classhk5]]
 	}
-	class abc6{
+	public static class Abc6{
 		[[classhk6]]
 	}
-	class abc7{
+	public static class Abc7{
 		[[classhk7]]
 	}
-	class abc8{
+	public static class Abc8{
 		[[classhk8]]
 	}
-	class abc9{
+	public static class Abc9{
 		[[classhk9]]
 	}
-	class abc10{
+	public static class Abc10{
 		[[classhk10]]
 	}
-	class abc11{
+	public static class Abc11{
 		[[classhk11]]
 	}
-	class abc12{
+	public static class Abc12{
 		[[classhk12]]
 	}
-	class abc13{
+	public static class Abc13{
 		[[classhk13]]
 	}
-	class abc14{
+	public static class Abc14{
 		[[classhk14]]
 	}
-	class abc15{
+	public static class Abc15{
 		[[classhk15]]
 	}
-	class abc16{
+	public static class Abc16{
 		[[classhk16]]
 	}
-	class abc17{
+	public static class Abc17{
 		[[classhk17]]
 	}
-	class abc18{
+	public static class Abc18{
 		[[classhk18]]
 	}
-	class abc19{
+	public static class Abc19{
 		[[classhk19]]
 	}
-	class abc20{
+	public static class Abc20{
 		[[classhk20]]
 	}
-	class abc21{
+	public static class Abc21{
 		[[classhk21]]
 	}
-	class abc22{
+	public static class Abc22{
 		[[classhk22]]
 	}
-	class abc23{
+	public static class Abc23{
 		[[classhk23]]
 	}
-	class abc24{
+	public static class Abc24{
 		[[classhk24]]
 	}
-	class abc25{
+	public static class Abc25{
 		[[classhk25]]
 	}
-	class abc26{
+	public static class Abc26{
 		[[classhk26]]
 	}
-	class abc27{
+	public static class Abc27{
 		[[classhk27]]
 	}
-	class abc28{
+	public static class Abc28{
 		[[classhk28]]
 	}
-	class abc29{
+	public static class Abc29{
 		[[classhk29]]
 	}
-	class abc30{
+	public static class Abc30{
 		[[classhk30]]
 	}
-	class abc31{
+	public static class Abc31{
 		[[classhk31]]
 	}
-	class abc32{
+	public static class Abc32{
 		[[classhk32]]
 	}
-	class abc33{
+	public static class Abc33{
 		[[classhk33]]
 	}
-	class abc34{
+	public static class Abc34{
 		[[classhk34]]
 	}
-	class abc35{
+	public static class Abc35{
 		[[classhk35]]
 	}
-	class abc36{
+	public static class Abc36{
 		[[classhk36]]
 	}
-	class abc37{
+	public static class Abc37{
 		[[classhk37]]
 	}
-	class abc38{
+	public static class Abc38{
 		[[classhk38]]
 	}
-	class abc39{
+	public static class Abc39{
 		[[classhk39]]
 	}
-	class abc40{
+	public static class Abc40{
 		[[classhk40]]
 	}
 }
