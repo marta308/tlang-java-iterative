@@ -29,14 +29,6 @@ public class Compiler {
 
 	}
 
-	public static String getFilename(String[] args) {
-		if (args.length != 2) {
-			System.out.println("Usage: java Compiler filename, outfile");
-			System.exit(1);
-		}
-		return args[0];
-	}
-
 	public static ClassDeclaration parse(File file) {
 		try {
 			FileReader reader = new FileReader(file);

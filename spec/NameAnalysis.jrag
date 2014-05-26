@@ -2,18 +2,6 @@ import java.util.regex.*;
 
 aspect NameAnalysis {
 	
-	  
-	  inh String Declaration.qname();
-	  eq CompilationUnit.getBody(int i).qname() = getBody(i).getName();
-	  eq ClassDeclaration.getBody(int i).qname(){
-		  return qname() + "." + getBody(i).getName();
-	  }
-	  eq MethodDeclaration.getParameters(int i).qname(){
-		  return qname() + "." + getParameters(i).getName();
-	  }
-	  eq MethodDeclaration.getBody(int i).qname(){ 
-		  return qname() + "." + ((Declaration)getBody(i)).getName();
-	  }
 	
 	  private static Declaration CompilationUnit.subtreeLookup(ASTNode decl, String label){
 		  Declaration match = null; 

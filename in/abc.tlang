@@ -215,69 +215,223 @@ public class Abc{
 	}
 
 	public static class Abc1{
-		public static void methodAbc1(int aa){
+		public static void methodAbc1(int aa, int bb){
 			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
 		}
 		[[classhk1]]
 	}
 	public static class Abc2{
-		public static void methodAbc2(int aa){
+		public static void methodAbc2(int aa, int bb){
 			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
 		}
 		[[classhk2]]
 	}
 	public static class Abc3{
+		public static void methodAbc3(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk3]]
 	}
 	public static class Abc4{
+		public static void methodAbc4(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk4]]
 	}
 	public static class Abc5{
+		public static void methodAbc5(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk5]]
 	}
 	public static class Abc6{
+		public static void methodAbc6(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk6]]
 	}
 	public static class Abc7{
+		public static void methodAbc7(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk7]]
 	}
 	public static class Abc8{
+		public static void methodAbc8(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk8]]
 	}
 	public static class Abc9{
+		public static void methodAbc9(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk9]]
 	}
 	public static class Abc10{
+		public static void methodAbc10(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk10]]
 	}
 	public static class Abc11{
+		public static void methodAbc11(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk11]]
 	}
 	public static class Abc12{
+		public static void methodAbc12(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk12]]
 	}
 	public static class Abc13{
+		public static void methodAbc13(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk13]]
 	}
 	public static class Abc14{
+		public static void methodAbc14(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk14]]
 	}
 	public static class Abc15{
+		public static void methodAbc15(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk15]]
 	}
 	public static class Abc16{
+		public static void methodAbc16(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk16]]
 	}
 	public static class Abc17{
+		public static void methodAbc17(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk17]]
 	}
 	public static class Abc18{
+		public static void methodAbc18(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk18]]
 	}
 	public static class Abc19{
+		public static void methodAbc19(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk19]]
 	}
 	public static class Abc20{
+		public static void methodAbc20(int aa, int bb){
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+			Subject.Inner1.Inner2.field1 = aa;
+			Subject.Inner1.Inner2.field2 = bb;
+		}
 		[[classhk20]]
 	}
 	public static class Abc21{

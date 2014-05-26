@@ -92,8 +92,6 @@ aspect Compositions{
 			}
 			nextComposition = getCompositionProgram().nextComposition();
 		}
-		if(!isCorrect())
-			throw new CompositionException("System wellformedness violated.");
 	}
 		
 }
