@@ -21,37 +21,7 @@ aspect Compositions{
 		else return null;
 	}
 
-	syn String Composer.sourceName(){
-		String name = getSourceName();
-		String[] parts = name.split("\\.");
-		StringBuffer newname = new StringBuffer();
-		for(int i = 0; i<parts.length; i++){
-			if(parts[i].equals("**"))
-				newname.append("-1");
-			else if(parts[i].matches("\\*[0-9]+"))
-				newname.append(parts[i].substring(1));
-			else newname.append(parts[i]);
-			if(i != parts.length - 1)
-				newname.append(".");
-		}
-		return newname.toString();
-	}
 	
-	syn String Composer.targetName(){
-		String name = getTargetName();
-		String[] parts = name.split("\\.");
-		StringBuffer newname = new StringBuffer();
-		for(int i = 0; i<parts.length; i++){
-			if(parts[i].equals("**"))
-				newname.append("-1");
-			else if(parts[i].matches("\\*[0-9]+"))
-				newname.append(parts[i].substring(1));
-			else newname.append(parts[i]);
-			if(i != parts.length - 1)
-				newname.append(".");
-		}
-		return newname.toString();
-	}
 	
 	syn Declaration Composer.getSource(){
 		if(getSourceName().equals(""))

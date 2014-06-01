@@ -1,130 +1,237 @@
 <!-- Targets for working from terminal window:
-       build (default) - generates java files and compiles them
-       clean           - removes all generated files and class files
-     Targets for working from Eclipse:
-       gen             - generates java files
-       genClean        - removes all generated files and their class files
+       
  -->
 
-<project name="Compiler" basedir=".">
-
-  <!-- "packageAST" is the directory where generated files will be stored -->
-  <property name="packageAST" value="AST"/>
+<project name="TLang-jars" default="make all jars" basedir=".">
 	
-  <!-- "packageSYN" is the directory where generated files will be stored -->
-  <property name="packageSYN" value="syntax"/>
+		<!-- "packageAST" is the directory where AST generated files will be stored -->
+		<property name="packageAST" value="AST" />
 
-  <!-- "tools" is the directory where generators and libraries are located. -->
-  <property name="tools" value="tools"/>
-    
-  <!-- "jflex" is an ant task class for the scanner generator in JFlex.jar -->
-  <taskdef name="jflex" classname="JFlex.anttask.JFlexTask" classpath="${tools}/JFlex.jar"/>
+		<!-- "packageSYN" is the directory where syntax generated files will be stored -->
+		<property name="packageSYN" value="syntax" />
 
-  <!-- "beaver" is an ant task class for the parser generator in beaver.jar -->
-  <taskdef name="beaver" classname="beaver.comp.run.AntTask" classpath="${tools}/beaver.jar"/>
+		<!-- "tools" is the directory where generators and libraries are located. -->
+		<property name="tools" value="tools" />
 
-  <!-- "jastadd" is an ant task class in jastadd2.jar -->
-  <taskdef classname="jastadd.JastAddTask" name="jastadd" classpath="${tools}/jastadd2.jar" />
+		<!-- "jflex" is an ant task class for the scanner generator in JFlex.jar -->
+		<taskdef name="jflex" classname="JFlex.anttask.JFlexTask" classpath="${tools}/JFlex.jar" />
 
-  <!-- TARGET build: compile sources -->
-  <target name="build_iter" depends="gen_iter">
-    <!-- compile all java files in srcdir and recursively in subdirectories -->
-    <javac debug="true" nowarn="true" srcdir="src;src-gen" classpath=".:${tools}/beaver.jar"
-        includeantruntime="false"/>
-  </target>
+		<!-- "beaver" is an ant task class for the parser generator in beaver.jar -->
+		<taskdef name="beaver" classname="beaver.comp.run.AntTask" classpath="${tools}/beaver.jar" />
 
-  <!-- TARGET gen: generate source files -->
-  <target name="gen_iter" depends="TLANGscanner,TLANGparser,COMPLANGscanner,COMPLANGparser">
-    <!-- create a directory for the generated files -->
-    <mkdir dir="src-gen/${packageAST}"/>
-    <!-- run jastadd to generate AST files -->
-    <jastadd package="${packageAST}" beaver="true" outdir="${basedir}/src-gen" lineColumnNumbers="true">
-      <fileset dir=".">
-        <include name="spec/*.ast"/>
-        <include name="spec/*.jrag"/>
-        <include name="spec/*.jadd"/>
-      </fileset>
-    </jastadd>
-  </target>
-	
-	<!-- TARGET build: compile sources -->
-	  <target name="build_decl" depends="gen_decl">
-	    <!-- compile all java files in srcdir and recursively in subdirectories -->
-	    <javac debug="true" nowarn="true" srcdir="src;src-gen" classpath=".:${tools}/beaver.jar"
-	        includeantruntime="false"/>
-	  </target>
+		<!-- "jastadd" is an ant task class in jastadd2.jar -->
+		<taskdef classname="jastadd.JastAddTask" name="jastadd" classpath="${tools}/jastadd2.jar" />
 
-	  <!-- TARGET gen: generate source files -->
-	  <target name="gen_decl" depends="TLANGscanner,TLANGparser,COMPLANGscanner,COMPLANGparser">
-	    <!-- create a directory for the generated files -->
-	    <mkdir dir="src-gen/${packageAST}"/>
-	    <!-- run jastadd to generate AST files -->
-	    <jastadd rewrite="true" package="${packageAST}" beaver="true" outdir="${basedir}/src-gen" lineColumnNumbers="true">
-	      <fileset dir=".">
-	        <include name="spec/*.ast"/>
-	        <include name="spec/*.jrag"/>
-	        <include name="spec/*.jadd"/>
-	      </fileset>
-	    </jastadd>
-	  </target>
+	<!-- TARGET gen: generate source files -->
+		<target name="gen_iter" depends="TLANGscanner,TLANGparser,COMPLANGscanner,COMPLANGparser">
+			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
+			<!-- create a directory for the generated files -->
+			<mkdir dir="src-gen/${packageAST}" />
+			<!-- run jastadd to generate AST files -->
+			<jastadd package="${packageAST}" beaver="true" outdir="${basedir}/src-gen" lineColumnNumbers="true">
+				<fileset dir=".">
+					<include name="spec/*.ast" />
+					<include name="spec/*.jrag" />
+					<include name="spec/*.jadd" />
+				</fileset>
+			</jastadd>
+			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
+			<eclipse.incrementalBuild project="TLang" kind="full"/>
+		</target>
 
-  <target name="TLANGscanner">
-  	<!-- create a directory for the generated files -->
-  	<mkdir dir="src-gen/${packageSYN}"/>
-    <!-- generate the scanner, translating .flex to .java -->
-    <jflex file="spec/TLangScanner.flex" outdir="src-gen/${packageSYN}" nobak="yes"/>
-  </target>
-	
-	<target name="COMPLANGscanner">
-	    <!-- generate the scanner, translating .flex to .java -->
-	    <jflex file="spec/CompLangScanner.flex" outdir="src-gen/${packageSYN}" nobak="yes"/>
-	  </target>
 
-	
-	<target name="TLANGparser">
-			<beaver
-				file				= "spec/TLangParser.beaver"
-				destdir				= "src-gen/${packageSYN}"
-				compress			= "yes"
-				exportTables		= "no"
-				sortTerminals		= "no"
-				terminalNames		= "yes"
-				exportTerminals		= "no"
-				useSwitch			= "no"
-				anonymousActions	= "yes"
-				reportActions		= "no"
-			/>
-	</target>
-	
-	<target name="COMPLANGparser">
-				<beaver
-					file				= "spec/CompLangParser.beaver"
-					destdir				= "src-gen/${packageSYN}"
-					compress			= "yes"
-					exportTables		= "no"
-					sortTerminals		= "no"
-					terminalNames		= "yes"
-					exportTerminals		= "no"
-					useSwitch			= "no"
-					anonymousActions	= "yes"
-					reportActions		= "no"
-				/>
+		<!-- TARGET gen: generate source files -->
+		<target name="gen_decl" depends="TLANGscanner,TLANGparser,COMPLANGscanner,COMPLANGparser">
+			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
+			<!-- create a directory for the generated files -->
+			<mkdir dir="src-gen/${packageAST}" />
+			<!-- run jastadd to generate AST files -->
+			<jastadd rewrite="true" package="${packageAST}" beaver="true" outdir="${basedir}/src-gen" lineColumnNumbers="true">
+				<fileset dir=".">
+					<include name="spec/*.ast" />
+					<include name="spec/*.jrag" />
+					<include name="spec/*.jadd" />
+				</fileset>
+			</jastadd>
+			<eclipse.refreshLocal resource="./TLang" depth="infinite"/>
+			<eclipse.incrementalBuild project="TLang" kind="full"/>
+		</target>
+
+		<target name="TLANGscanner">
+			<!-- create a directory for the generated files -->
+			<mkdir dir="src-gen/${packageSYN}" />
+			<!-- generate the scanner, translating .flex to .java -->
+			<jflex file="spec/TLangScanner.flex" outdir="src-gen/${packageSYN}" nobak="yes" />
+		</target>
+
+		<target name="COMPLANGscanner">
+			<!-- generate the scanner, translating .flex to .java -->
+			<jflex file="spec/CompLangScanner.flex" outdir="src-gen/${packageSYN}" nobak="yes" />
+		</target>
+
+		<target name="TLANGparser">
+			<!-- preprocess the parser, translating .parser to .beaver -->
+			<java classpath="${tools}/JastAddParser.jar:${tools}/beaver-rt.jar" classname="Main" fork="true">
+				<arg value="--no-beaver-symbol" />
+				<arg value="spec/TLangParser.parser" />
+				<arg value="spec/TLangParser.beaver" />
+			</java>
+			<!-- generate the parser, translating .beaver to .java -->
+			<beaver file="spec/TLangParser.beaver" destdir="src-gen/${packageSYN}" compress="yes" exportTables="no" sortTerminals="no" terminalNames="yes" exportTerminals="no" useSwitch="no" anonymousActions="yes" reportActions="no" />
+		</target>
+
+		<target name="COMPLANGparser">
+			<!-- preprocess the parser, translating .parser to .beaver -->
+			<java classpath="${tools}/JastAddParser.jar:${tools}/beaver-rt.jar" classname="Main" fork="true">
+				<arg value="--no-beaver-symbol" />
+				<arg value="spec/CompLangParser.parser" />
+				<arg value="spec/CompLangParser.beaver" />
+			</java>
+			<!-- generate the parser, translating .beaver to .java -->
+			<beaver file="spec/CompLangParser.beaver" destdir="src-gen/${packageSYN}" compress="yes" exportTables="no" sortTerminals="no" terminalNames="yes" exportTerminals="no" useSwitch="no" anonymousActions="yes" reportActions="no" />
+		</target>
+
+		<!-- Remove generated source files and .class files -->
+		<target name="clean">
+			<!-- Delete all generated source files -->
+			<delete dir="src-gen/${packageAST}" />
+			<delete dir="src-gen/${packageSYN}" />
+			<!-- Delete all classfiles in dir and recursively in subdirectories -->
+			<delete>
+				<fileset dir="." includes="**/*.class" />
+			</delete>
 		</target>
 	
 
-  <!-- Remove generated source files and .class files -->
-  <target name="clean" depends="cleanGen">
-    <!-- Delete all classfiles in dir and recursively in subdirectories -->
-    <delete>
-      <fileset dir="." includes="**/*.class"/>
-    </delete>
-  </target>
 
-  <!-- Remove generated source files -->
-  <target name="cleanGen">
-    <delete dir="src-gen/${packageAST}"/>
-  	<delete dir="src-gen/${packageSYN}"/>
-  </target>
+	<target name="iterative_0" description="iterative version no check">
+		<antcall target="clean">
+		</antcall>
+		<copy file="adaptation/Compositions_iter_0.jrag" tofile="spec/Compositions.jrag" overwrite="true" />
+		<copy file="adaptation/PerformCompositions_iter.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true" />
+		<antcall target="gen_iter">
+		</antcall>
+		<!-- compile all java files in srcdir, first create a directory for .class files -->
+		<mkdir dir="javac_bin" />
+		<javac debug="true" nowarn="true" srcdir="src;src-gen" destdir="javac_bin" classpath=".:${tools}/beaver.jar" includeantruntime="false" />
+		<jar destfile="./tlang-iterative_0.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="exampleprogs.Main" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./javac_bin" />
+		</jar>
+	</target>
 
-  
+	<target name="iterative_1" description="iterative version with check">
+		<antcall target="clean">
+		</antcall>
+		<copy file="adaptation/Compositions_iter_1.jrag" tofile="spec/Compositions.jrag" overwrite="true" />
+		<copy file="adaptation/PerformCompositions_iter.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true" />
+		<antcall target="gen_iter">
+		</antcall>
+		<!-- compile all java files in srcdir, first create a directory for .class files -->
+		<mkdir dir="javac_bin" />
+		<javac debug="true" nowarn="true" srcdir="src;src-gen" destdir="javac_bin" classpath=".:${tools}/beaver.jar" includeantruntime="false" />
+		<jar destfile="./tlang-iterative_1.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="exampleprogs.Main" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./javac_bin" />
+		</jar>
+	</target>
+
+	<target name="iterative_n" description="iterative version repetitive check">
+		<antcall target="clean">
+		</antcall>
+		<copy file="adaptation/Compositions_iter_n.jrag" tofile="spec/Compositions.jrag" overwrite="true" />
+		<copy file="adaptation/PerformCompositions_iter.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true" />
+		<antcall target="gen_iter">
+		</antcall>
+		<!-- compile all java files in srcdir, first create a directory for .class files -->
+		<mkdir dir="javac_bin" />
+		<javac debug="true" nowarn="true" srcdir="src;src-gen" destdir="javac_bin" classpath=".:${tools}/beaver.jar" includeantruntime="false" />
+		<jar destfile="./tlang-iterative_n.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="exampleprogs.Main" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./javac_bin" />
+		</jar>
+	</target>
+
+	<target name="declarative_0" description="declarative version no check">
+		<antcall target="clean">
+		</antcall>
+		<copy file="adaptation/Compositions_decl_0.jrag" tofile="spec/Compositions.jrag" overwrite="true" />
+		<copy file="adaptation/PerformCompositions_decl_0.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true" />
+		<antcall target="gen_decl">
+		</antcall>
+		<!-- compile all java files in srcdir, first create a directory for .class files -->
+		<mkdir dir="javac_bin" />
+		<javac debug="true" nowarn="true" srcdir="src;src-gen" destdir="javac_bin" classpath=".:${tools}/beaver.jar" includeantruntime="false" />
+		<jar destfile="./tlang-declarative_0.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="exampleprogs.Main" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./javac_bin" />
+		</jar>
+	</target>
+
+	<target name="declarative_1" description="declarative version with check">
+		<antcall target="clean">
+		</antcall>
+		<copy file="adaptation/Compositions_decl_0.jrag" tofile="spec/Compositions.jrag" overwrite="true" />
+		<copy file="adaptation/PerformCompositions_decl_1-n.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true" />
+		<antcall target="gen_decl">
+		</antcall>
+		<!-- compile all java files in srcdir, first create a directory for .class files -->
+		<mkdir dir="javac_bin" />
+		<javac debug="true" nowarn="true" srcdir="src;src-gen" destdir="javac_bin" classpath=".:${tools}/beaver.jar" includeantruntime="false" />
+		<jar destfile="./tlang-declarative_1.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="exampleprogs.Main" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./javac_bin" />
+		</jar>
+	</target>
+
+	<target name="declarative_n" description="declarative version repetitive check">
+		<antcall target="clean">
+		</antcall>
+		<copy file="adaptation/Compositions_decl_n.jrag" tofile="spec/Compositions.jrag" overwrite="true" />
+		<copy file="adaptation/PerformCompositions_decl_1-n.java" tofile="src/exampleprogs/PerformCompositions.java" overwrite="true" />
+		<antcall target="gen_decl">
+		</antcall>
+		<!-- compile all java files in srcdir, first create a directory for .class files -->
+		<mkdir dir="javac_bin" />
+		<javac debug="true" nowarn="true" srcdir="src;src-gen" destdir="javac_bin" classpath=".:${tools}/beaver.jar" includeantruntime="false" />
+		<jar destfile="./tlang-declarative_n.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Main-Class" value="exampleprogs.Main" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="./javac_bin" />
+		</jar>
+	</target>
+
+	<target name="make all jars">
+		<antcall target="iterative_0">
+		</antcall>
+		<antcall target="iterative_1">
+		</antcall>
+		<antcall target="iterative_n">
+		</antcall>
+		<antcall target="declarative_0">
+		</antcall>
+		<antcall target="declarative_1">
+		</antcall>
+		<antcall target="declarative_n">
+		</antcall>
+	</target>
+
+
 </project>

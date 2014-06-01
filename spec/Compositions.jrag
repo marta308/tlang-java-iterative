@@ -1,49 +1,36 @@
-import java.util.regex.*;
 
 aspect Compositions{
-	
+		
 	inh CompilationUnit CompositionProgram.getCompilationUnit();
 	eq CompilationUnit.getCompositionProgram().getCompilationUnit() = this;
 	inh CompilationUnit Composer.getCompilationUnit();
 	eq CompositionProgram.getComposers(int i).getCompilationUnit() = getCompilationUnit();
 	
-	syn String Composer.sourceName(){
-		String name = getSourceName();
-		String[] parts = name.split("\\.");
-		StringBuffer newname = new StringBuffer();
-		for(int i = 0; i<parts.length; i++){
-			if(parts[i].equals("**"))
-				newname.append("-1");
-			else if(parts[i].matches("\\*[0-9]+"))
-				newname.append(parts[i].substring(1));
-			else newname.append(parts[i]);
-			if(i != parts.length - 1)
-				newname.append(".");
-		}
-		return newname.toString();
-	}
+
+	inh CompositionProgram Declaration.getCompositionProgram();
+	eq CompilationUnit.getBody(int i).getCompositionProgram() = getCompositionProgram();
+	eq ClassDeclaration.getBody(int i).getCompositionProgram() = getCompositionProgram();
+	eq MethodDeclaration.getBody(int i).getCompositionProgram() = getCompositionProgram();
+	eq MethodDeclaration.getParameters(int i).getCompositionProgram() = getCompositionProgram();
 	
-	syn String Composer.targetName(){
-		String name = getTargetName();
-		String[] parts = name.split("\\.");
-		StringBuffer newname = new StringBuffer();
-		for(int i = 0; i<parts.length; i++){
-			if(parts[i].equals("**"))
-				newname.append("-1");
-			else if(parts[i].matches("\\*[0-9]+"))
-				newname.append(parts[i].substring(1));
-			else newname.append(parts[i]);
-			if(i != parts.length - 1)
-				newname.append(".");
-		}
-		return newname.toString();
+	syn CompositionProgram List.getCompositionProgram(){
+		if(getParent() instanceof Declaration)
+			return ((Declaration)getParent()).getCompositionProgram();
+		else if(getParent() instanceof CompilationUnit)
+			return ((CompilationUnit)getParent()).getCompositionProgram();
+		else return null;
 	}
+
 	
 	syn Declaration Composer.getSource(){
+		if(getSourceName().equals(""))
+			return null;
 		return getCompilationUnit().lookup(sourceName());
 	}
 	
 	syn Declaration Composer.getTarget(){
+		if(getTargetName().equals(""))
+			return null;
 		return getCompilationUnit().lookup(targetName());
 	}
 	
@@ -58,40 +45,105 @@ aspect Compositions{
 			if(!next.isExhausted())
 				return next;
 		}
-		return null;
+		//return null;
+		return new BindCopy("", "");	//"null" composer
 	}
 	
-	//this == bind target
-	public boolean ASTNode.bind(ASTNode source){
-		if(source == null)
-			return false;
-		ASTNode parent = this.getParent();
-		int index = parent.getIndexOfChild(this);
-		parent.removeChild(index);
-		ASTNode nodeCopy = source.fullCopy();
-		parent.insertChild(nodeCopy, index);
-	
+	/*syn boolean CompositionProgram.allExhausted(){
+		for(int i=0; i<getNumComposers(); i++){
+			if(!getComposers(i).isExhausted())
+				return false;
+		}
 		return true;
 	}
 	
-	public void ASTNode.removeSource(){
-		ASTNode srcParent = this.getParent();		
-		srcParent.removeChild(srcParent.getIndexOfChild(this));
+	
+	syn boolean Declaration.hasAssociatedComposer(){
+		for(int i=0; i<getCompositionProgram().getNumComposers(); i++){
+			if(getCompositionProgram().getComposers(i).getTarget().contains(this))
+				return true;
+		}
+		return false;		
+	}*/
+	
+	syn Composer Declaration.LookUpComposer(Declaration target){
+		Composer composer = null;
+		for(int i=0; i<getCompositionProgram().getNumComposers(); i++){
+			composer = getCompositionProgram().getComposers(i);
+			if(composer.getTarget() == target)
+				return composer;
+		}
+		return null;	
 	}
 	
-	public void CompilationUnit.doCompositions() throws CompositionException{
-		Composer nextComposition = getCompositionProgram().nextComposition();
-		while(nextComposition != null){
-			Declaration source = nextComposition.getSource();
-			Declaration target = nextComposition.getTarget();
+	syn boolean Declaration.isExComposerSource(){
+		Composer composer = null;
+		for(int i=0; i<getCompositionProgram().getNumComposers(); i++){
+			composer = getCompositionProgram().getComposers(i);
+			if(composer instanceof BindExhaust && composer.getSource() == this && 
+					composer.isExhausted())
+				return true;
+		}
+		return false;
+	}
+	
+	syn boolean List.isParentOfExComposerSource(){
+		for(int i=0; i<getNumChildNoTransform(); i++){
+			if(getChildNoTransform(i) instanceof Declaration &&
+					((Declaration)getChildNoTransform(i)).isExComposerSource())
+				return true;
+		}
+		return false;	
+	}
+	
+	syn int List.indexOfChildToRemove(){
+		for(int i=0; i<getNumChildNoTransform(); i++){
+			if(((Declaration)getChildNoTransform(i)).isExComposerSource())
+				return i;
+		}
+		return -1;
+	}
+	
+	
+	rewrite DeclarationHook {
+		when(//getCompositionProgram().nextComposition() != null &&
+				getCompositionProgram().nextComposition().getTarget() == this
+				&& getCompositionProgram().getCompilationUnit().checkWellformedness()
+				)
+		to Declaration{
+			Composer composer = LookUpComposer(this);
+			Declaration source = composer.getSource();
 			if(source == null)
 				throw new CompositionException("Incorrect composition source fragment."); 
-			target.bind(source);
-			if(nextComposition instanceof BindExhaust){
-				source.removeSource();
-			}
-			nextComposition = getCompositionProgram().nextComposition();
+			return (Declaration)source.fullCopy();
 		}
 	}
-		
+	
+	rewrite List{
+		when(isParentOfExComposerSource()
+				&& getCompositionProgram().getCompilationUnit().checkWellformedness()
+				)
+		to List{
+			int childIndex = indexOfChildToRemove();
+			if(childIndex == -1)
+				throw new CompositionException("Incorrect composition source fragment."); 
+			removeChild(childIndex);
+			return this;
+		}
+	}
+	
+	public void CompilationUnit.traverse(){
+		for(ClassDeclaration cu : getBodyList()){
+			cu.traverse();
+		}
+	}
+	public void ASTNode.traverse() {
+		for(int i=0;i<this.getNumChildNoTransform();i++){
+			//getChild(i) triggers the rewrite in JastAdd
+			ASTNode next = this.getChild(i);
+				if(next!=null)
+				next.traverse();
+		}
+	}
+ 
 }
