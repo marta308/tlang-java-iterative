@@ -3,7 +3,7 @@ aspect Compositions{
 		
 	inh CompilationUnit CompositionProgram.getCompilationUnit();
 	eq CompilationUnit.getCompositionProgram().getCompilationUnit() = this;
-	inh CompilationUnit Composer.getCompilationUnit();
+	inh CompilationUnit BindComposer.getCompilationUnit();
 	eq CompositionProgram.getComposers(int i).getCompilationUnit() = getCompilationUnit();
 	
 
@@ -22,87 +22,42 @@ aspect Compositions{
 	}
 
 	
-	
-	syn Declaration Composer.getSource(){
+	syn Declaration BindComposer.getSource(){
 		if(getSourceName().equals(""))
 			return null;
 		return getCompilationUnit().lookup(sourceName());
 	}
 	
-	syn Declaration Composer.getTarget(){
+	syn Declaration BindComposer.getTarget(){
 		if(getTargetName().equals(""))
 			return null;
 		return getCompilationUnit().lookup(targetName());
 	}
 	
-	syn boolean Composer.isExhausted(){
+	syn boolean BindComposer.isExhausted(){
 		return getTarget() == null;
 	}
 	
-	syn Composer CompositionProgram.nextComposition(){
-		Composer next = null;
+	syn BindComposer CompositionProgram.nextComposition(){
+		BindComposer next = null;
 		for (int i = 0; i < getNumComposers(); i++){
 			next = getComposers(i);
 			if(!next.isExhausted())
 				return next;
 		}
 		//return null;
-		return new BindCopy("", "");	//"null" composer
-	}
-	
-	/*syn boolean CompositionProgram.allExhausted(){
-		for(int i=0; i<getNumComposers(); i++){
-			if(!getComposers(i).isExhausted())
-				return false;
-		}
-		return true;
+		return new BindComposer("", "");	//"null" composer
 	}
 	
 	
-	syn boolean Declaration.hasAssociatedComposer(){
-		for(int i=0; i<getCompositionProgram().getNumComposers(); i++){
-			if(getCompositionProgram().getComposers(i).getTarget().contains(this))
-				return true;
-		}
-		return false;		
-	}*/
-	
-	syn Composer Declaration.LookUpComposer(Declaration target){
-		Composer composer = null;
+	syn BindComposer Declaration.LookUpComposer(Declaration target){
+		BindComposer composer = null;
 		for(int i=0; i<getCompositionProgram().getNumComposers(); i++){
 			composer = getCompositionProgram().getComposers(i);
 			if(composer.getTarget() == target)
 				return composer;
 		}
 		return null;	
-	}
-	
-	syn boolean Declaration.isExComposerSource(){
-		Composer composer = null;
-		for(int i=0; i<getCompositionProgram().getNumComposers(); i++){
-			composer = getCompositionProgram().getComposers(i);
-			if(composer instanceof BindExhaust && composer.getSource() == this && 
-					composer.isExhausted())
-				return true;
-		}
-		return false;
-	}
-	
-	syn boolean List.isParentOfExComposerSource(){
-		for(int i=0; i<getNumChildNoTransform(); i++){
-			if(getChildNoTransform(i) instanceof Declaration &&
-					((Declaration)getChildNoTransform(i)).isExComposerSource())
-				return true;
-		}
-		return false;	
-	}
-	
-	syn int List.indexOfChildToRemove(){
-		for(int i=0; i<getNumChildNoTransform(); i++){
-			if(((Declaration)getChildNoTransform(i)).isExComposerSource())
-				return i;
-		}
-		return -1;
 	}
 	
 	
@@ -112,7 +67,7 @@ aspect Compositions{
 				//&& getCompositionProgram().getRoot().checkWellformedness()
 				)
 		to Declaration{
-			Composer composer = LookUpComposer(this);
+			BindComposer composer = LookUpComposer(this);
 			Declaration source = composer.getSource();
 			if(source == null)
 				throw new CompositionException("Incorrect composition source fragment."); 
@@ -120,18 +75,6 @@ aspect Compositions{
 		}
 	}
 	
-	rewrite List{
-		when(isParentOfExComposerSource()
-				//&& getCompositionProgram().getRoot().checkWellformedness()
-				)
-		to List{
-			int childIndex = indexOfChildToRemove();
-			if(childIndex == -1)
-				throw new CompositionException("Incorrect composition source fragment."); 
-			removeChild(childIndex);
-			return this;
-		}
-	}
 	
 	public void CompilationUnit.traverse(){
 		for(ClassDeclaration cu : getBodyList()){

@@ -3,7 +3,7 @@ import java.io.*;
 aspect PrettyPrint {
   public void CompilationUnit.pp(String outfolder) throws java.io.IOException{
     for (Declaration d:getBodyList()) {
-    	File out = new File(d.qname() + ".txt");
+    	File out = new File(d.qname() + ".tlang");
 		Writer writer = null;
 		writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(outfolder + '/' + out.getName()), "utf-8"));
@@ -17,54 +17,66 @@ aspect PrettyPrint {
   
   public void ClassDeclaration.pp(java.io.Writer writer, int indent) throws java.io.IOException{
   	for(int i = 0; i < indent; i++)
-  		writer.write("- ");
-    writer.write("ClassDeclaration: " + getName() + "\n");
+  		writer.write("\t");
+  	if(getParent().getParent() instanceof CompilationUnit)
+  		writer.write("public class " + getName() + "{\n");
+  	else
+  		writer.write("public static class " + getName() + "{\n");
     for (Declaration d:getBodyList()) {
       d.pp(writer, indent + 1);
     }
+    for(int i = 0; i < indent; i++)
+  		writer.write("\t");
+    writer.write("}\n");
   }
   
   public void MethodDeclaration.pp(java.io.Writer writer, int indent) throws java.io.IOException{
   	for(int i = 0; i < indent; i++)
-  		writer.write("- ");
-    writer.write("MethodDeclaration: " + getName() + "\n");
-    for(int i = 0; i < indent+1; i++)
-  		writer.write("- ");
-  	writer.write("Parameters:\n");
-    for (Declaration d:getParametersList()) {
-      d.pp(writer, indent + 1);
+  		writer.write("\t");
+    writer.write("public static void " + getName() + "(");
+    if(hasParameters()){
+    	getParameters(0).pp(writer, 0);
+    	for (int i = 1; i<getNumParameters(); i++){
+    		writer.write(", ");
+    		getParameters(i).pp(writer, 0);
+    	}
     }
-    for(int i = 0; i < indent+1; i++)
-  		writer.write("- ");
-  	writer.write("Method Body:\n");
+    writer.write("){\n");
     for (Statement d:getBodyList()) {
       d.pp(writer, indent + 1);
+      writer.write(";\n");
     }
+    for(int i = 0; i < indent; i++)
+  		writer.write("\t");
+    writer.write("}\n");
   }
   
   public void VariableAssignment.pp(java.io.Writer writer, int indent) throws java.io.IOException{
 	  for(int i = 0; i < indent; i++)
-	  		writer.write("- ");
-	    writer.write("VariableAssignment\n");
-	    getLHand().pp(writer, indent + 1);
-	    getRHand().pp(writer, indent + 1);
+	  		writer.write("\t");
+	    getLHand().pp(writer, 0);
+	    writer.write(" = ");
+	    getRHand().pp(writer, 0);
   }
   public void FieldDeclaration.pp(java.io.Writer writer, int indent) throws java.io.IOException{
   	for(int i = 0; i < indent; i++)
-  		writer.write("- ");
-    writer.write("FieldDeclaration: " + getName() + "\n");
+  		writer.write("\t");
+  	if(getParent().getParent() instanceof ClassDeclaration)
+  		writer.write("public static int " + getName() + ";\n");
+  	else
+  		writer.write("int " + getName());
   }
   
   public void DeclarationHook.pp(java.io.Writer writer, int indent) throws java.io.IOException{
   	for(int i = 0; i < indent; i++)
-  		writer.write("- ");
-    writer.write("DeclarationHook: " + getName() + "\n");
+  		writer.write("\t");
+    writer.write("[[" + getName() + "]]\n");
   }
   
   public void Reference.pp(java.io.Writer writer, int indent) throws java.io.IOException{
 	  	for(int i = 0; i < indent; i++)
-	  		writer.write("- ");
-	    writer.write("Reference: " + getName() + "\n");
-	  }
+	  		writer.write("\t");
+	    writer.write(getName());
+  }
   
 }

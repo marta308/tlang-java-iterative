@@ -35,8 +35,7 @@ Identifier = [:jletter:]([:jletterdigit:] | "." | "*")*
 {WhiteSpace}  { }
 
 // token definitions
-"bind_copy"       { return sym(Terminals.BINDCOPY); }
-"bind_exhaust"    { return sym(Terminals.BINDEXHAUST); }
+"bind"       { return sym(Terminals.BIND); }
 {Identifier}  { return sym(Terminals.IDENTIFIER); }
 ";"           { return sym(Terminals.SEMI); }
 <<EOF>>       { return sym(Terminals.EOF); }

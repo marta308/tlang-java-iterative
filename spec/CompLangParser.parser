@@ -23,8 +23,7 @@ List composer_list =
   | composer_list composer {: return composer_list.add(composer); :}
   ;
 
-Composer composer =
-    BINDCOPY IDENTIFIER.target IDENTIFIER.source SEMI     {: return new BindCopy (target, source); :}
-  | BINDEXHAUST IDENTIFIER.target IDENTIFIER.source SEMI     {: return new BindExhaust (target, source); :}
+BindComposer composer =
+    BIND IDENTIFIER.target IDENTIFIER.source SEMI     {: return new BindComposer (target, source); :}
   ;
 

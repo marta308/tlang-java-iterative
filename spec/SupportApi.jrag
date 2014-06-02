@@ -13,7 +13,7 @@ aspect SupportApi {
 		  return qname() + "." + ((Declaration)getBody(i)).getName();
 	  }
 	  
-	  syn String Composer.sourceName(){
+	  syn String BindComposer.sourceName(){
 			String name = getSourceName();
 			String[] parts = name.split("\\.");
 			StringBuffer newname = new StringBuffer();
@@ -29,7 +29,7 @@ aspect SupportApi {
 			return newname.toString();
 		}
 		
-		syn String Composer.targetName(){
+		syn String BindComposer.targetName(){
 			String name = getTargetName();
 			String[] parts = name.split("\\.");
 			StringBuffer newname = new StringBuffer();

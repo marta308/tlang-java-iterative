@@ -1,14 +1,11 @@
 
 
-CompositionProgram ::= Composers:Composer*;
+CompositionProgram ::= Composers:BindComposer*;
 
 
-abstract Composer ::=
+BindComposer ::=
 	<TargetName:String>
 	<SourceName:String>
 ;
-
-BindCopy:Composer ::=;
-BindExhaust:Composer ::=;
 
 

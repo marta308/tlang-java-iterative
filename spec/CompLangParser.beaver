@@ -1,14 +1,13 @@
-%header {: // Generated from src/spec/CompLangParser.parser
+%header {: // Generated from spec/CompLangParser.parser
 // this code is inlined before the generated parser
  package syntax;
  import AST.*; :};
-%embed {: // Generated from src/spec/CompLangParser.parser
+%embed {: // Generated from spec/CompLangParser.parser
 // this code is inlined in the generated parser class :};
-%terminals BINDCOPY;
+%terminals BIND;
 %terminals IDENTIFIER;
 %terminals SEMI;
-%terminals BINDEXHAUST;
-%typeof composer = "Composer";
+%typeof composer = "BindComposer";
 %typeof composer_list = "List";
 %typeof goal = "compositionprogram";
 %goal goal;
@@ -30,13 +29,8 @@ composer_list =
         return new Symbol(_node_); :}
   ;
 composer =
-    BINDCOPY.BINDCOPY IDENTIFIER.target IDENTIFIER.source SEMI.SEMI {: ASTNode _node_ = new BindCopy (((String)target.value), ((String)source.value));
-        _node_.setStart(Symbol.getLine(BINDCOPY.getStart()), (short) Symbol.getColumn(BINDCOPY.getStart()));
-        _node_.setEnd(Symbol.getLine(SEMI.getEnd()), (short) Symbol.getColumn(SEMI.getEnd()));
-        return new Symbol(_node_); :}
-
-  | BINDEXHAUST.BINDEXHAUST IDENTIFIER.target IDENTIFIER.source SEMI.SEMI {: ASTNode _node_ = new BindExhaust (((String)target.value), ((String)source.value));
-        _node_.setStart(Symbol.getLine(BINDEXHAUST.getStart()), (short) Symbol.getColumn(BINDEXHAUST.getStart()));
+    BIND.BIND IDENTIFIER.target IDENTIFIER.source SEMI.SEMI {: ASTNode _node_ = new BindComposer (((String)target.value), ((String)source.value));
+        _node_.setStart(Symbol.getLine(BIND.getStart()), (short) Symbol.getColumn(BIND.getStart()));
         _node_.setEnd(Symbol.getLine(SEMI.getEnd()), (short) Symbol.getColumn(SEMI.getEnd()));
         return new Symbol(_node_); :}
   ;

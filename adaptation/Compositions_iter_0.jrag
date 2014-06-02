@@ -4,24 +4,24 @@ aspect Compositions{
 	
 	inh CompilationUnit CompositionProgram.getCompilationUnit();
 	eq CompilationUnit.getCompositionProgram().getCompilationUnit() = this;
-	inh CompilationUnit Composer.getCompilationUnit();
+	inh CompilationUnit BindComposer.getCompilationUnit();
 	eq CompositionProgram.getComposers(int i).getCompilationUnit() = getCompilationUnit();
 	
 	
-	syn Declaration Composer.getSource(){
+	syn Declaration BindComposer.getSource(){
 		return getCompilationUnit().lookup(sourceName());
 	}
 	
-	syn Declaration Composer.getTarget(){
+	syn Declaration BindComposer.getTarget(){
 		return getCompilationUnit().lookup(targetName());
 	}
 	
-	syn boolean Composer.isExhausted(){
+	syn boolean BindComposer.isExhausted(){
 		return getTarget() == null;
 	}
 	
-	syn Composer CompositionProgram.nextComposition(){
-		Composer next = null;
+	syn BindComposer CompositionProgram.nextComposition(){
+		BindComposer next = null;
 		for (int i = 0; i < getNumComposers(); i++){
 			next = getComposers(i);
 			if(!next.isExhausted())
@@ -43,22 +43,15 @@ aspect Compositions{
 		return true;
 	}
 	
-	public void ASTNode.removeSource(){
-		ASTNode srcParent = this.getParent();		
-		srcParent.removeChild(srcParent.getIndexOfChild(this));
-	}
 	
 	public void CompilationUnit.doCompositions() throws CompositionException{
-		Composer nextComposition = getCompositionProgram().nextComposition();
+		BindComposer nextComposition = getCompositionProgram().nextComposition();
 		while(nextComposition != null){
 			Declaration source = nextComposition.getSource();
 			Declaration target = nextComposition.getTarget();
 			if(source == null)
 				throw new CompositionException("Incorrect composition source fragment."); 
 			target.bind(source);
-			if(nextComposition instanceof BindExhaust){
-				source.removeSource();
-			}
 			nextComposition = getCompositionProgram().nextComposition();
 		}
 	}
